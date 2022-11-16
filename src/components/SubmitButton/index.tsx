@@ -3,10 +3,9 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
 interface SubmitButton {
-  onSubmit?: () => void;
   disabled?: boolean;
 }
-const SubmitButton = ({ onSubmit, disabled = false }: SubmitButton) => {
+const SubmitButton = ({ disabled = false }: SubmitButton) => {
 
   const StyledButton = styled(Button)`
     font-family: 'Lato – Solace', 'Lato', sans-serif;

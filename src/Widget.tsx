@@ -32,11 +32,10 @@ const SearchWidget = () => {
     console.log(data)
     const encodedParams = encodeURI(`${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`)
     const redirect = `https://app-staging.solace.health/findadvocates?pub_lat=${encodedParams}`
-    // window.location.assign(redirect)
+    window.location.assign(redirect)
   }
 
   const onSelectLocation = (data: any) => {
-    console.log("SETTING LOCATION:", data)
     setValue('location', data)
   }
 

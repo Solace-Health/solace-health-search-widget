@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
-
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -60,6 +56,7 @@ interface SelectDropdown {
   options: SelectOption[];
   icon?: any
 }
+
 export default function SelectDropdown({ label, options, icon, ...restProps }: SelectDropdown) {
   const [inputValue, setInputValue] = React.useState<string[]>([]);
 
@@ -67,7 +64,7 @@ export default function SelectDropdown({ label, options, icon, ...restProps }: S
     const { target: { value } } = event;
     setInputValue(typeof value === 'string' ? value.split(',') : value);
   };
-
+  console.log(inputValue)
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
