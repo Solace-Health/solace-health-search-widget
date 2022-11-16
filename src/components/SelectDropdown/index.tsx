@@ -20,8 +20,34 @@ const MenuProps = {
 };
 
 const StyledSelect = styled(Select)`
+  font-family: 'Lato – Solace', 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
   border-radius: 8px;
+  background: #FFFFFF;
+  height: 50px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  border: 1px solid #AAAAAA;
+  border-radius: 10px;
+
+  fieldset {
+    border: none !important;
+  }
 `;
+
+const Placeholder = styled(MenuItem)`
+  color: #5A5A5A;
+`
+
+const IconWrapper = styled('div')`
+  margin-right: 10px;
+`
 
 interface SelectOption {
   value: string;
@@ -29,7 +55,12 @@ interface SelectOption {
   extra?: string;
 }
 
-export default function SelectDropdown({ label, options, ...restProps }: { label: string, options: SelectOption[] }) {
+interface SelectDropdown {
+  label: string;
+  options: SelectOption[];
+  icon?: any
+}
+export default function SelectDropdown({ label, options, icon, ...restProps }: SelectDropdown) {
   const [inputValue, setInputValue] = React.useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof inputValue>) => {
@@ -40,22 +71,25 @@ export default function SelectDropdown({ label, options, ...restProps }: { label
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">{label}</InputLabel>
         <StyledSelect
           id="select-value"
           value={inputValue}
           onChange={handleChange}
-          input={<OutlinedInput label={label} />}
           MenuProps={MenuProps}
+          displayEmpty
           {...restProps}
         >
+          <Placeholder disabled value=''>
+            <IconWrapper>{icon}</IconWrapper>{label}
+          </Placeholder>
           {options.map(({ value, name, extra }) => (
+            
             <MenuItem
               key={name}
               value={value}
             >
               <div>{name}</div>
-              <div>{extra}</div>
+              {/* <div>{extra}</div> */}
             </MenuItem>
           ))}
         </StyledSelect>

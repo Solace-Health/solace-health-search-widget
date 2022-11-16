@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { SelectDropdown, LocationSearch } from './components'
-import { useForm, Controller } from "react-hook-form";
-import Button from '@mui/material/Button';
+import { SelectDropdown, LocationSearch, SubmitButton, Icons } from './components'
+import { useForm, Controller, FormProvider } from "react-hook-form";
 import styled from '@emotion/styled';
 
 const SearchWidget = () => {
-  const { control, handleSubmit } = useForm({
+  const methods = useForm({
     defaultValues: {
       serviceType: '',
       location: {},
@@ -13,12 +12,32 @@ const SearchWidget = () => {
     }
   });
 
+  const { control, handleSubmit, setValue } = methods;
+
   const Container = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
+
+  const Wrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 80px;
   `;
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    const { location, serviceType, workType} = data
+    console.log(data)
+    const encodedParams = encodeURI(`${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`)
+    const redirect = `https://app-staging.solace.health/findadvocates?pub_lat=${encodedParams}`
+    // window.location.assign(redirect)
+  }
+
+  const onSelectLocation = (data: any) => {
+    console.log("SETTING LOCATION:", data)
+    setValue('location', data)
   }
 
   const serviceTypes = [
@@ -35,39 +54,43 @@ const SearchWidget = () => {
   ]
 
   return (
-    <div>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container>
-          <Controller
-            name="serviceType"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => 
-              <SelectDropdown
-                label="Select a Service"
-                options={serviceTypes} 
-                {...field} 
-              />
-            }
-          />
-          <Controller
-            name="workType"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => 
-              <SelectDropdown 
-                label="In-Person or Virtual?"
-                options={workTypes} 
-                {...field} 
-              />
-            }
-          />
-        </Container>
-        <Button size="large" type="submit" variant="contained">Start Your Search</Button>
+          <Wrapper>
+            <Controller
+              name="serviceType"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => 
+                <SelectDropdown
+                  label="Select a Service"
+                  options={serviceTypes} 
+                  icon={<Icons.ServiceIcon />}
+                  {...field} 
+                />
+              }
+            />
+           
+            <LocationSearch onHandleSelect={onSelectLocation} />
+            <Controller
+              name="workType"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => 
+                <SelectDropdown 
+                  label="In-Person or Virtual?"
+                  options={workTypes} 
+                  icon={<Icons.VideoIcon />}
+                  {...field} 
+                />
+              }
+            />
+        </Wrapper>
+        <SubmitButton disabled={false} />
+      </Container>
       </form>
-      {/* <SelectDropdown />
-      <LocationSearch /> */}
-    </div>
+    </FormProvider>
   )
 }
 export default SearchWidget;
