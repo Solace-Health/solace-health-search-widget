@@ -1,0 +1,30 @@
+
+
+.MuiAutocomplete-root {
+  display: flex;
+  align-items: center;
+}
+
+.MuiFormControl-root .MuiAutocomplete-inputRoot {
+  font-family: 'Lato – Solace', 'Lato', sans-serif !important;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  border-radius: 8px;
+  background: #FFFFFF;
+  height: 50px;
+  border: 1px solid #AAAAAA;
+  
+}
+
+.MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {
+  border: none !important;
+}
+
+.MuiFormLabel-filled {
+  display: none !important;
+}
+
+.MuiAutocomplete-input {
+  padding: 4px 10px !important;
+}
