@@ -25,7 +25,6 @@ const SearchWidget = () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 30px;
     padding: 0 20px;
 
     .MuiFormControl-root {
