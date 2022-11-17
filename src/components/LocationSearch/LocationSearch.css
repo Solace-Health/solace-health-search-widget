@@ -15,10 +15,17 @@
 .MuiMenuItem-gutters {
   margin: 0 !important;
   width: 100% !important;
+  white-space: break-spaces !important;
 }
 
 .Mui-selected {
   background-color: #e9f0ee !important;
+  outline: none !important;
+}
+
+.Mui-selected *,
+.MuiOutlinedInput-notchedOutline {
+  outline: none !important;
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot {
@@ -30,6 +37,7 @@
   background: #FFFFFF;
   height: 50px;
   border: 1px solid #AAAAAA;
+  
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {
