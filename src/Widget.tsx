@@ -18,13 +18,34 @@ const SearchWidget = () => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   `;
 
   const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
+    padding: 0 20px;
+
+    .MuiFormControl-root {
+      width: 100% !important;
+      margin: 0 0 10px 0 !important
+    }
+
+    @media (max-width: 600px) {
+      > div {
+        width: 100%;
+      }
+    }
+    
+
+    @media (min-width: 600px) {
+      .MuiFormControl-root {
+        width: 250px !important;
+        margin: 8px !important
+      }
+    }
   `;
 
   const onSubmit = (data: any) => {
@@ -40,16 +61,16 @@ const SearchWidget = () => {
   }
 
   const serviceTypes = [
-    { value: 'Medical Guidance', name: 'Medical Guidance', extra: 'Frontline advocates who step in and take charge during a medical crisis.' },
-    { value: 'Wellness and Lifestyle', name: 'Wellness and Lifestyle', extra: 'Quality-of-life advocates dedicated to keeping patients healthy and out of the hospital.' },
-    { value: 'Insurance and Billing', name: 'Insurance and Billing', extra: 'Resourceful advocates who tackle medical charges and insurance benefits/enrollment.' },
-    { value: 'Aging and Special Care', name: 'Aging and Special Care', extra: 'Compassionate advocates who assist aging adults and patients with special needs.' },
+    { value: 'Medical Guidance', name: 'Medical Guidance', extra: 'Frontline advocates who step in and take charge during a medical crisis.', icon: <Icons.ServiceIcon /> },
+    { value: 'Wellness and Lifestyle', name: 'Wellness and Lifestyle', extra: 'Quality-of-life advocates dedicated to keeping patients healthy and out of the hospital.', icon: <Icons.SunIcon /> },
+    { value: 'Insurance and Billing', name: 'Insurance and Billing', extra: 'Resourceful advocates who tackle medical charges and insurance benefits/enrollment.', icon: <Icons.BuildingIcon />},
+    { value: 'Aging and Special Care', name: 'Aging and Special Care', extra: 'Compassionate advocates who assist aging adults and patients with special needs.', icon: <Icons.HeartIcon /> },
   ]
 
   const workTypes = [
-    { value: 'flexible', name: 'In-Person or Virtual' },
-    { value: 'virtual', name: 'Virtual Support' },
-    { value: 'in_person', name: 'In-Person Support' }
+    { value: 'in_person', name: 'In-Person Support', icon: <Icons.HouseIcon /> },
+    { value: 'virtual', name: 'Virtual Support', icon: <Icons.VideoIcon/> },
+    { value: 'flexible', name: 'Both', icon: <Icons.PeopleIcon /> }
   ]
 
   return (
@@ -70,7 +91,6 @@ const SearchWidget = () => {
                 />
               }
             />
-           
             <LocationSearch onHandleSelect={onSelectLocation} />
             <Controller
               name="workType"

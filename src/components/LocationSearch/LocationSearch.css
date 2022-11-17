@@ -4,7 +4,21 @@
 }
 
 .MuiFormControl-root {
-  max-width: 250px !important;
+  margin-bottom: 5px 8px !important
+}
+
+.MuiMenuItem-root {
+  padding-left: 10px !important;
+  margin: none !important;
+}
+
+.MuiMenuItem-gutters {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.Mui-selected {
+  background-color: #e9f0ee !important;
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot {
@@ -16,7 +30,6 @@
   background: #FFFFFF;
   height: 50px;
   border: 1px solid #AAAAAA;
-  
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {

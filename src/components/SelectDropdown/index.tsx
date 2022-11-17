@@ -3,6 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
+import { find } from "lodash"
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -10,7 +11,6 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
     },
   },
 };
@@ -37,56 +37,86 @@ const StyledSelect = styled(Select)`
   }
 `;
 
-const Placeholder = styled(MenuItem)`
-  color: #5A5A5A;
+const IconWrapper = styled('div')`
+  display: flex;
+  margin-right: 15px;
+  width: 26px;
+  min-width: 26px;
+  max-width: 26px;
 `
 
-const IconWrapper = styled('div')`
-  margin-right: 10px;
+const DropdownContent = styled('div')`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #1d4339;
+  padding: 8px;
+
+  > div div:last-of-type {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  > div div:first-of-type {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 700;
+    margin-bottom: 3px
+  }
+  
+`
+
+const Value = styled('div')`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #5A5A5A;
 `
 
 interface SelectOption {
   value: string;
   name: string;
   extra?: string;
+  icon?: JSX.Element
 }
 
 interface SelectDropdown {
   label: string;
   options: SelectOption[];
-  icon?: any
+  icon?: JSX.Element
 }
 
-export default function SelectDropdown({ label, options, icon, ...restProps }: SelectDropdown) {
-  const [inputValue, setInputValue] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof inputValue>) => {
-    const { target: { value } } = event;
-    setInputValue(typeof value === 'string' ? value.split(',') : value);
-  };
-  console.log(inputValue)
+export default function SelectDropdown({ label, options, icon, ...restProps }: SelectDropdown) {
+
+  const SelectValue = ({value}: { value: string}) => {
+    const option = find(options, { value })
+    return (
+      <Value><IconWrapper>{option?.icon || icon}</IconWrapper>{option?.name || label}</Value>
+    )
+  }
+  
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl fullWidth>
         <StyledSelect
           id="select-value"
-          value={inputValue}
-          onChange={handleChange}
-          MenuProps={MenuProps}
           displayEmpty
+          renderValue={(value: string) => <SelectValue value={value} />}
           {...restProps}
         >
-          <Placeholder disabled value=''>
-            <IconWrapper>{icon}</IconWrapper>{label}
-          </Placeholder>
-          {options.map(({ value, name, extra }) => (
-            
+          {options.map(({ value, name, extra, icon }) => (
             <MenuItem
               key={name}
               value={value}
             >
-              <div>{name}</div>
-              {/* <div>{extra}</div> */}
+              <DropdownContent>
+                { icon && <IconWrapper>{icon}</IconWrapper> }
+                <div>
+                  { extra ? <div>{name}</div> : <span>{name}</span> }
+                  { extra && <div>{extra}</div> }
+                </div>
+              </DropdownContent>
             </MenuItem>
           ))}
         </StyledSelect>
