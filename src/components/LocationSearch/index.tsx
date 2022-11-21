@@ -1,5 +1,3 @@
-
- // @ts-nocheck
 import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -10,11 +8,11 @@ import usePlacesAutocomplete, {
 import "./LocationSearch.css"
 
 interface LocationSearch {
-  onHandleSelect?: (data: any) => void
+  onHandleSelect?: (data: {address: string, lat: number, lng: number}) => void
+  register?: any
+  error?: any
 }
-const LocationSearch = ({ address, onHandleSelect }: LocationSearch) => {
-  const [address, setAddress] = React.useState('')
-
+const LocationSearch = ({ onHandleSelect, register }: LocationSearch) => {
   const {
     ready,
     value,
@@ -25,9 +23,9 @@ const LocationSearch = ({ address, onHandleSelect }: LocationSearch) => {
     debounce: 300,
   });
 
-  const handleInput = (e) => setValue(e.target.value);
+  const handleInput = (e: {target: {value: string}}) => setValue(e.target.value);
 
-  const handleSelect = (description) => {
+  const handleSelect = (description: string) => {
     setValue(description, false);
     clearSuggestions();
 
@@ -40,17 +38,19 @@ const LocationSearch = ({ address, onHandleSelect }: LocationSearch) => {
 
   return (
       <Autocomplete
+        style={{alignSelf: 'flex-start'}}
         freeSolo
         disableClearable
         options={data.map((option) => option.description)}
         renderInput={(params) => (
           <TextField
             {...params}
+            name="location"
             placeholder="Search for location..."
-            onSelect={(data) => handleSelect(data.target.value)}
+            onSelect={(data: any) => handleSelect(data.target.value)}
             value={value}
             onChange={handleInput}
-            shrink={false}
+            {...register("location.address", { minLength: {value: 1, message: 'This field is required.'} })}
           />
         )}
       />  

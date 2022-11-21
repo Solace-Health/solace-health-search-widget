@@ -15,6 +15,7 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     padding: 14px 40px !important;
     text-transform: none;
     z-index: 100;
+    margin-top: 10px;
     
     span {
       font-style: normal;
