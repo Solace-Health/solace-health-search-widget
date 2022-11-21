@@ -62,6 +62,7 @@ const SearchWidget = () => {
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`
     if (window.analytics) {
       window.analytics.track("PERFORMED_SEARCH", {
+        context: "MarketingHome",
         location,
         service_type: serviceType,
         work_type: workType,
