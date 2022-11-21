@@ -4,7 +4,7 @@
 }
 
 .MuiFormControl-root {
-  margin-bottom: 5px 8px !important
+  margin-bottom: 5px 8px !important;
 }
 
 .MuiMenuItem-root {
@@ -29,15 +29,14 @@
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot {
-  font-family: 'Lato – Solace', 'Lato', sans-serif !important;
+  font-family: "Lato – Solace", "Lato", sans-serif !important;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   border-radius: 8px;
-  background: #FFFFFF;
+  background: #ffffff;
   height: 50px;
-  border: 1px solid #AAAAAA;
-  
+  border: 1px solid #aaaaaa;
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {
