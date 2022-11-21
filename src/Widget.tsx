@@ -2,6 +2,9 @@ import * as React from 'react';
 import { SelectDropdown, LocationSearch, SubmitButton, Icons } from './components'
 import { useForm, Controller, FormProvider } from "react-hook-form";
 import styled from '@emotion/styled';
+declare global {
+  interface Window { analytics: any; }
+}
 
 const SearchWidget = () => {
   const methods = useForm({
@@ -49,9 +52,17 @@ const SearchWidget = () => {
 
   const onSubmit = (data: any) => {
     const { location, serviceType, workType} = data
-    console.log(data)
     const encodedParams = encodeURI(`${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`)
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`
+    if (window.analytics) {
+      window.analytics.track("PERFORMED_SEARCH", {
+        location,
+        service_type: serviceType,
+        work_type: workType,
+        redirect_url: redirect
+      });
+    }
+
     window.location.assign(redirect)
   }
 
