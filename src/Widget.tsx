@@ -165,7 +165,7 @@ const SearchWidget = () => {
                 onHandleSelect={onSelectLocation}
                 register={register}
               />
-              {errors.location && (
+              {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
             </div>
