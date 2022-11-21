@@ -15,6 +15,7 @@ declare global {
 }
 
 const SearchWidget = () => {
+  const [locationError, setLocationError] = React.useState(false)
   const methods = useForm({
     defaultValues: {
       serviceType: "",
@@ -23,6 +24,7 @@ const SearchWidget = () => {
     },
   });
 
+<<<<<<< Updated upstream
   const {
     control,
     handleSubmit,
@@ -31,6 +33,9 @@ const SearchWidget = () => {
     setError,
     formState: { errors },
   } = methods;
+=======
+  const { control, handleSubmit, setValue, formState: { errors } } = methods;
+>>>>>>> Stashed changes
 
   const Container = styled.div`
     display: flex;
@@ -68,8 +73,13 @@ const SearchWidget = () => {
     const { location, serviceType, workType } = data;
 
     if (!location.address) {
+<<<<<<< Updated upstream
       setError("location", { type: "focus" });
       return;
+=======
+      setLocationError(true);
+      return
+>>>>>>> Stashed changes
     }
 
     const encodedParams = encodeURI(
@@ -89,9 +99,13 @@ const SearchWidget = () => {
     window.location.assign(redirect);
   };
 
+<<<<<<< Updated upstream
   const onSelectLocation = (data: any) => {
     setValue("location", data);
   };
+=======
+  const onSelectLocation = (data: any) => setValue('location', data)
+>>>>>>> Stashed changes
 
   const serviceTypes = [
     {
@@ -162,6 +176,7 @@ const SearchWidget = () => {
               }}
             />
             <div>
+<<<<<<< Updated upstream
               <LocationSearch
                 onHandleSelect={onSelectLocation}
                 register={register}
@@ -169,6 +184,10 @@ const SearchWidget = () => {
               {errors.location && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
+=======
+              <LocationSearch onHandleSelect={onSelectLocation} />
+              {locationError && <ErrorMessage>Please enter a valid city or zip</ErrorMessage>}
+>>>>>>> Stashed changes
             </div>
             <Controller
               name="workType"
