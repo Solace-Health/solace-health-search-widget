@@ -15,6 +15,7 @@ declare global {
 }
 
 const SearchWidget = () => {
+  const [locationError, setLocationError] = React.useState(false);
   const methods = useForm({
     defaultValues: {
       serviceType: "",
@@ -68,7 +69,7 @@ const SearchWidget = () => {
     const { location, serviceType, workType } = data;
 
     if (!location.address) {
-      setError("location", { type: "focus" });
+      setLocationError(true);
       return;
     }
 
@@ -89,9 +90,7 @@ const SearchWidget = () => {
     window.location.assign(redirect);
   };
 
-  const onSelectLocation = (data: any) => {
-    setValue("location", data);
-  };
+  const onSelectLocation = (data: any) => setValue("location", data);
 
   const serviceTypes = [
     {
@@ -166,7 +165,7 @@ const SearchWidget = () => {
                 onHandleSelect={onSelectLocation}
                 register={register}
               />
-              {errors.location && (
+              {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
             </div>

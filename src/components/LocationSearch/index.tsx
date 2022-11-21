@@ -16,7 +16,7 @@ interface LocationSearch {
   register?: any;
   error?: any;
 }
-const LocationSearch = ({ onHandleSelect, register }: LocationSearch) => {
+const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
   const {
     ready,
     value,
@@ -55,9 +55,6 @@ const LocationSearch = ({ onHandleSelect, register }: LocationSearch) => {
           onSelect={(data: any) => handleSelect(data.target.value)}
           value={value}
           onChange={handleInput}
-          {...register("location.address", {
-            minLength: { value: 1, message: "This field is required." },
-          })}
         />
       )}
     />
