@@ -14,6 +14,12 @@ declare global {
   }
 }
 
+const InputWrapper = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const SearchWidget = () => {
   const [locationError, setLocationError] = React.useState(false);
   const methods = useForm({
@@ -146,7 +152,7 @@ const SearchWidget = () => {
               }}
               render={({ field }) => {
                 return (
-                  <div>
+                  <InputWrapper>
                     <SelectDropdown
                       label="Select a Service"
                       options={serviceTypes}
@@ -156,11 +162,11 @@ const SearchWidget = () => {
                     {errors.serviceType && (
                       <ErrorMessage>{errors.serviceType.message}</ErrorMessage>
                     )}
-                  </div>
+                  </InputWrapper>
                 );
               }}
             />
-            <div>
+            <InputWrapper>
               <LocationSearch
                 onHandleSelect={onSelectLocation}
                 register={register}
@@ -168,7 +174,7 @@ const SearchWidget = () => {
               {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
-            </div>
+            </InputWrapper>
             <Controller
               name="workType"
               control={control}
@@ -177,7 +183,7 @@ const SearchWidget = () => {
               }}
               render={({ field }) => {
                 return (
-                  <div>
+                  <InputWrapper>
                     <SelectDropdown
                       label="In-Person or Virtual?"
                       options={workTypes}
@@ -187,7 +193,7 @@ const SearchWidget = () => {
                     {errors.workType && (
                       <ErrorMessage>{errors.workType.message}</ErrorMessage>
                     )}
-                  </div>
+                  </InputWrapper>
                 );
               }}
             />

@@ -51,7 +51,7 @@ const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
         <TextField
           {...params}
           name="location"
-          placeholder="Search for location..."
+          placeholder="City or Zip Code"
           onSelect={(data: any) => handleSelect(data.target.value)}
           value={value}
           onChange={handleInput}
