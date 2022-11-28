@@ -34,8 +34,6 @@ const SearchWidget = () => {
     control,
     handleSubmit,
     setValue,
-    register,
-    setError,
     formState: { errors },
   } = methods;
 
@@ -72,7 +70,7 @@ const SearchWidget = () => {
   `;
 
   const onSubmit = (data: any) => {
-    const { location, serviceType, workType } = data;
+    const { location, serviceType } = data;
 
     if (!location.address) {
       setLocationError(true);
@@ -80,7 +78,7 @@ const SearchWidget = () => {
     }
 
     const encodedParams = encodeURI(
-      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`
+      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=flexible`
     );
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`;
     if (window.analytics) {
@@ -88,7 +86,6 @@ const SearchWidget = () => {
         context: "MarketingHome",
         location,
         service_type: serviceType,
-        work_type: workType,
         redirect_url: redirect,
       });
     }
@@ -129,16 +126,6 @@ const SearchWidget = () => {
     },
   ];
 
-  const workTypes = [
-    {
-      value: "in_person",
-      name: "In-Person Support",
-      icon: <Icons.HouseIcon />,
-    },
-    { value: "virtual", name: "Virtual Support", icon: <Icons.VideoIcon /> },
-    { value: "flexible", name: "Both", icon: <Icons.PeopleIcon /> },
-  ];
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -168,35 +155,13 @@ const SearchWidget = () => {
             />
             <InputWrapper>
               <LocationSearch
+                icon={<Icons.LocationIcon />}
                 onHandleSelect={onSelectLocation}
-                register={register}
               />
               {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
             </InputWrapper>
-            <Controller
-              name="workType"
-              control={control}
-              rules={{
-                required: { value: true, message: "This field is required" },
-              }}
-              render={({ field }) => {
-                return (
-                  <InputWrapper>
-                    <SelectDropdown
-                      label="In-Person or Virtual?"
-                      options={workTypes}
-                      icon={<Icons.VideoIcon />}
-                      {...field}
-                    />
-                    {errors.workType && (
-                      <ErrorMessage>{errors.workType.message}</ErrorMessage>
-                    )}
-                  </InputWrapper>
-                );
-              }}
-            />
           </Wrapper>
           <SubmitButton disabled={false} />
         </Container>
