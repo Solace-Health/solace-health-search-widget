@@ -78,7 +78,7 @@ const SearchWidget = () => {
     }
 
     const encodedParams = encodeURI(
-      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=flexible`
+      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}`
     );
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`;
     if (window.analytics) {
