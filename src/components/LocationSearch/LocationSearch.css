@@ -23,6 +23,10 @@
   outline: none !important;
 }
 
+.MuiAutocomplete-root .MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
 .Mui-selected *,
 .MuiOutlinedInput-notchedOutline {
   outline: none !important;
@@ -48,5 +52,9 @@
 }
 
 .MuiAutocomplete-input {
-  padding: 4px 10px !important;
+  padding: 4px 0px !important;
+}
+
+.MuiInputAdornment-root {
+  margin-right: 0 !important;
 }

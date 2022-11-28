@@ -34,8 +34,6 @@ const SearchWidget = () => {
     control,
     handleSubmit,
     setValue,
-    register,
-    setError,
     formState: { errors },
   } = methods;
 
@@ -168,35 +166,13 @@ const SearchWidget = () => {
             />
             <InputWrapper>
               <LocationSearch
+                icon={<Icons.LocationIcon />}
                 onHandleSelect={onSelectLocation}
-                register={register}
               />
               {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
             </InputWrapper>
-            <Controller
-              name="workType"
-              control={control}
-              rules={{
-                required: { value: true, message: "This field is required" },
-              }}
-              render={({ field }) => {
-                return (
-                  <InputWrapper>
-                    <SelectDropdown
-                      label="In-Person or Virtual?"
-                      options={workTypes}
-                      icon={<Icons.VideoIcon />}
-                      {...field}
-                    />
-                    {errors.workType && (
-                      <ErrorMessage>{errors.workType.message}</ErrorMessage>
-                    )}
-                  </InputWrapper>
-                );
-              }}
-            />
           </Wrapper>
           <SubmitButton disabled={false} />
         </Container>

@@ -6,6 +6,8 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import "./LocationSearch.css";
+import styled from "@emotion/styled";
+import { InputAdornment } from "@mui/material";
 
 interface LocationSearch {
   onHandleSelect?: (data: {
@@ -13,10 +15,18 @@ interface LocationSearch {
     lat: number;
     lng: number;
   }) => void;
-  register?: any;
-  error?: any;
+  icon: React.ReactNode;
 }
-const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
+
+const IconWrapper = styled("div")`
+  display: flex;
+  margin-right: 15px;
+  width: 26px;
+  min-width: 26px;
+  max-width: 26px;
+`;
+
+const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
   const {
     ready,
     value,
@@ -48,14 +58,23 @@ const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
       disableClearable
       options={data.map((option) => option.description)}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          name="location"
-          placeholder="City or Zip Code"
-          onSelect={(data: any) => handleSelect(data.target.value)}
-          value={value}
-          onChange={handleInput}
-        />
+        <>
+          <TextField
+            {...params}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconWrapper>{icon}</IconWrapper>
+                </InputAdornment>
+              ),
+            }}
+            name="location"
+            placeholder="City or Zip Code"
+            onSelect={(data: any) => handleSelect(data.target.value)}
+            value={value}
+            onChange={handleInput}
+          />
+        </>
       )}
     />
   );
