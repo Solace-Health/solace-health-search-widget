@@ -24,7 +24,10 @@
 }
 
 .MuiAutocomplete-root .MuiOutlinedInput-root {
+  display: flex;
+  align-self: center;
   border-radius: 8px;
+  max-width: 205px;
 }
 
 .Mui-selected *,
