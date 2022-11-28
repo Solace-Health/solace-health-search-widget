@@ -70,7 +70,7 @@ const SearchWidget = () => {
   `;
 
   const onSubmit = (data: any) => {
-    const { location, serviceType, workType } = data;
+    const { location, serviceType } = data;
 
     if (!location.address) {
       setLocationError(true);
@@ -86,7 +86,6 @@ const SearchWidget = () => {
         context: "MarketingHome",
         location,
         service_type: serviceType,
-        work_type: workType,
         redirect_url: redirect,
       });
     }
