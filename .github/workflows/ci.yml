@@ -25,7 +25,7 @@ jobs:
       - name: Validate build folder
         run: |
           npm run build
-          git diff --quiet HEAD $REF -- dist/build || (echo '
+          git diff --quiet HEAD $REF -- dist || (echo '
             ************************************************
             * Changes detected in build folder.    *
             * Run `npm run build` and commit changes. *
