@@ -31,6 +31,12 @@
   max-width: 205px;
 }
 
+@media (min-width: 550px) {
+  .MuiAutocomplete-root .MuiOutlinedInput-root {
+    align-self: start;
+  }
+}
+
 .Mui-selected *,
 .MuiOutlinedInput-notchedOutline {
   outline: none !important;
