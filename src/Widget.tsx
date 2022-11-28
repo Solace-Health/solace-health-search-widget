@@ -78,7 +78,7 @@ const SearchWidget = () => {
     }
 
     const encodedParams = encodeURI(
-      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`
+      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=flexible`
     );
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`;
     if (window.analytics) {
@@ -125,16 +125,6 @@ const SearchWidget = () => {
         "Compassionate advocates who assist aging adults and patients with special needs.",
       icon: <Icons.HeartIcon />,
     },
-  ];
-
-  const workTypes = [
-    {
-      value: "in_person",
-      name: "In-Person Support",
-      icon: <Icons.HouseIcon />,
-    },
-    { value: "virtual", name: "Virtual Support", icon: <Icons.VideoIcon /> },
-    { value: "flexible", name: "Both", icon: <Icons.PeopleIcon /> },
   ];
 
   return (
