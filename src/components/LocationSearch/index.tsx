@@ -53,7 +53,6 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
 
   return (
     <Autocomplete
-      style={{ alignSelf: "flex-start" }}
       freeSolo
       disableClearable
       options={data.map((option) => option.description)}
