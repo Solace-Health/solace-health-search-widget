@@ -62,6 +62,7 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
           <TextField
             {...params}
             InputProps={{
+              ...params.InputProps,
               startAdornment: (
                 <InputAdornment position="start">
                   <IconWrapper>{icon}</IconWrapper>
