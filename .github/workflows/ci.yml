@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: NPM Install
+        run: npm install
+
+      - name: Prettier
+        run: npx prettier --check .
+
+      - name: Validate build folder
+        run: |
+          npm run build
+          git diff --quiet HEAD $REF -- dist/build || (echo '
+            ************************************************
+            * Changes detected in build folder.    *
+            * Run `npm run build` and commit changes. *
+            ************************************************
+          ' && exit 1)
