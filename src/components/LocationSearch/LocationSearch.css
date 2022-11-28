@@ -32,6 +32,10 @@
   outline: none !important;
 }
 
+.MuiInputAdornment-root div {
+  margin-right: 7px;
+}
+
 .MuiFormControl-root .MuiAutocomplete-inputRoot {
   font-family: "Lato – Solace", "Lato", sans-serif !important;
   font-weight: 400;
