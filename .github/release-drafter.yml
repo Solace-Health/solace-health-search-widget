@@ -1,6 +1,6 @@
-name-template: "$NEXT_PATCH_VERSION"
-tag-template: "$NEXT_PATCH_VERSION"
-version-template: "$MAJOR.$MINOR.$PATCH"
+name-template: "v$NEXT_PATCH_VERSION"
+tag-template: "v$NEXT_PATCH_VERSION"
+version-template: "v$MAJOR.$MINOR.$PATCH"
 change-template: "- #$NUMBER $TITLE (@$AUTHOR)"
 template: |
   ## Change Log
