@@ -45,10 +45,12 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
     clearSuggestions();
 
     // Get latitude and longitude via utility functions
-    getGeocode({ address: description }).then((results) => {
-      const { lat, lng } = getLatLng(results[0]);
-      onHandleSelect({ address: description, lat, lng });
-    });
+    getGeocode({ address: description })
+      .then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        onHandleSelect({ address: description, lat, lng });
+      })
+      .catch((e) => console.log(`Google Maps API error: ${e}`));
   };
 
   return (
