@@ -7,18 +7,13 @@ import {
   ErrorMessage,
 } from "./components";
 import { useForm, Controller, FormProvider } from "react-hook-form";
-import styled from "@emotion/styled";
+import { InputWrapper, Container, Wrapper} from "./Styles";
+
 declare global {
   interface Window {
     analytics: any;
   }
 }
-
-const InputWrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const SearchWidget = () => {
   const [locationError, setLocationError] = React.useState(false);
@@ -37,40 +32,14 @@ const SearchWidget = () => {
     formState: { errors },
   } = methods;
 
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  `;
+  interface ISubmit {
+    location: any;
+    serviceType?: string;
+    workType?: string;
+  }
 
-  const Wrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0 20px;
-
-    .MuiFormControl-root {
-      width: 100% !important;
-      margin: 0 0 10px 0 !important;
-    }
-
-    @media (max-width: 600px) {
-      > div {
-        width: 100%;
-      }
-    }
-
-    @media (min-width: 600px) {
-      .MuiFormControl-root {
-        width: 250px !important;
-        margin: 8px !important;
-      }
-    }
-  `;
-
-  const onSubmit = (data: any) => {
-    const { location, serviceType } = data;
+  const onSubmit = (data: ISubmit) => {
+    const { location, serviceType, workType } = data;
 
     if (!location.address) {
       setLocationError(true);
@@ -78,7 +47,7 @@ const SearchWidget = () => {
     }
 
     const encodedParams = encodeURI(
-      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}`
+      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}&pub_workStyle=${workType}`
     );
     const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`;
     if (window.analytics) {
@@ -93,7 +62,7 @@ const SearchWidget = () => {
     window.location.assign(redirect);
   };
 
-  const onSelectLocation = (data: any) => setValue("location", data);
+  const onSelectLocation = (data: unknown) => setValue("location", data);
 
   const serviceTypes = [
     {
@@ -124,6 +93,16 @@ const SearchWidget = () => {
         "Compassionate advocates who assist aging adults and patients with special needs.",
       icon: <Icons.HeartIcon />,
     },
+  ];
+
+  const workTypes = [
+    {
+      value: "in_person",
+      name: "In-Person Support",
+      icon: <Icons.HouseIcon />,
+    },
+    { value: "virtual", name: "Virtual Supprt", icon: <Icons.VideoIcon /> },
+    { value: "flexible", name: "Both", icon: <Icons.PeopleIcon /> },
   ];
 
   return (
@@ -162,6 +141,28 @@ const SearchWidget = () => {
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
             </InputWrapper>
+            <Controller
+              name="workType"
+              control={control}
+              rules={{
+                required: { value: true, message: "This field is requred" },
+              }}
+              render={({ field }) => {
+                return (
+                  <InputWrapper>
+                    <SelectDropdown
+                      label="In-Person or Virtual?"
+                      options={workTypes}
+                      icon={<Icons.VideoIcon />}
+                      {...field}
+                    />
+                    {errors.workType && (
+                      <ErrorMessage>{errors.workType.message}</ErrorMessage>
+                    )}
+                  </InputWrapper>
+                );
+              }}
+            />
           </Wrapper>
           <SubmitButton disabled={false} />
         </Container>
