@@ -102,8 +102,9 @@ const SearchWidget = () => {
       icon: <Icons.HouseIcon />,
     },
     { value: "virtual", name: "Virtual Supprt", icon: <Icons.VideoIcon /> },
+    { value: "retainer", icon: <Icons.PeopleIcon /> },
     { value: "flexible", name: "Both", icon: <Icons.PeopleIcon /> },
-  ];
+  ] as any;
 
   return (
     <FormProvider {...methods}>
@@ -147,7 +148,7 @@ const SearchWidget = () => {
               rules={{
                 required: { value: true, message: "This field is requred" },
               }}
-              render={({ field }) => {
+              render={({ field }: { field: any}) => {
                 return (
                   <InputWrapper>
                     <SelectDropdown
@@ -156,7 +157,7 @@ const SearchWidget = () => {
                       icon={<Icons.VideoIcon />}
                       {...field}
                     />
-                    {errors.workType && (
+                    {errors && (
                       <ErrorMessage>{errors.workType.message}</ErrorMessage>
                     )}
                   </InputWrapper>
