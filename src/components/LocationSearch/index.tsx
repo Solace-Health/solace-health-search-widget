@@ -34,6 +34,10 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
+    requestOptions: {
+      types: ["locality", "postal_code"],
+      componentRestrictions: { country: "us" },
+    },
     debounce: 300,
   });
 
