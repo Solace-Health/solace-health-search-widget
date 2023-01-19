@@ -14,6 +14,8 @@ declare global {
   }
 }
 
+type Location = { address: string; lat: number; lng: number };
+
 const InputWrapper = styled("div")`
   display: flex;
   flex-direction: column;
@@ -26,7 +28,6 @@ const SearchWidget = () => {
     defaultValues: {
       serviceType: "",
       location: {},
-      workType: "",
     },
   });
 
@@ -69,7 +70,7 @@ const SearchWidget = () => {
     }
   `;
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: { location: Location; serviceType: string }) => {
     const { location, serviceType } = data;
 
     if (!location.address) {
@@ -77,10 +78,14 @@ const SearchWidget = () => {
       return;
     }
 
-    const encodedParams = encodeURI(
-      `${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}&pub_serviceType=${serviceType}`
-    );
-    const redirect = `https://app.solace.health/findadvocates?pub_lat=${encodedParams}`;
+    let uri = `pub_serviceType=${serviceType}`;
+
+    if (location.lat && location.lng) {
+      uri += `&pub_lat=${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}`;
+    }
+
+    const encodedParams = encodeURI(uri);
+    const redirect = `https://app.solace.health/findadvocates?${encodedParams}`;
     if (window.analytics) {
       window.analytics.track("PERFORMED_SEARCH", {
         context: "MarketingHome",
