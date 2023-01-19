@@ -28,9 +28,8 @@ const IconWrapper = styled("div")`
 
 const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
   const {
-    ready,
     value,
-    suggestions: { status, data },
+    suggestions: { data },
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
@@ -41,12 +40,16 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
     debounce: 300,
   });
 
-  const handleInput = (e: { target: { value: string } }) =>
+  const handleInput = (e: { target: { value: string } }) => {
     setValue(e.target.value);
+    onHandleSelect({ address: e.target.value, lat: null, lng: null });
+  };
 
   const handleSelect = (description: string) => {
     setValue(description, false);
     clearSuggestions();
+
+    if (description.length <= 2) return;
 
     // Get latitude and longitude via utility functions
     getGeocode({ address: description })
