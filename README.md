@@ -1,7 +1,8 @@
 # Solace Search Widget
+
 As displayed in the header of our [WebFlow](https://www.solace.health/) site. This form once submitted will trigger an analytics event before it redirects to our applications search page with the filters pre-applied. Filters include Location and Advocate Speciality.
 
-### Install Dependencies 
+### Install Dependencies
 
 ```bash
 npm i
