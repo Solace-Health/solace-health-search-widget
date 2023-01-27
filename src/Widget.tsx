@@ -14,7 +14,14 @@ declare global {
   }
 }
 
-type Location = { address: string; lat: number; lng: number };
+export type Location = {
+  address: string;
+  lat: number;
+  lng: number;
+  city: string;
+  state: string;
+  zip: string;
+};
 
 const InputWrapper = styled("div")`
   display: flex;
@@ -82,6 +89,10 @@ const SearchWidget = () => {
 
     if (location.lat && location.lng) {
       uri += `&pub_lat=${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}`;
+    }
+
+    if (location.state) {
+      uri += `&state=${location.state}`;
     }
 
     const encodedParams = encodeURI(uri);
