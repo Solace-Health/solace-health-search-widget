@@ -8,13 +8,21 @@ import {
 } from "./components";
 import { useForm, Controller, FormProvider } from "react-hook-form";
 import styled from "@emotion/styled";
+import { omitBy, isNil } from "lodash";
 declare global {
   interface Window {
     analytics: any;
   }
 }
 
-type Location = { address: string; lat: number; lng: number };
+export type Location = {
+  address: string;
+  lat: number;
+  lng: number;
+  city: string;
+  state: string;
+  zip: string;
+};
 
 const InputWrapper = styled("div")`
   display: flex;
@@ -78,14 +86,23 @@ const SearchWidget = () => {
       return;
     }
 
-    let uri = `pub_serviceType=${serviceType}`;
+    const params = omitBy(
+      {
+        pub_serviceType: serviceType,
+        pub_lat: location.lat?.toString(),
+        pub_lng: location.lng?.toString(),
+        pub_location: location.address,
+        city: location.city,
+        state: location.state,
+        zip: location.zip,
+      },
+      isNil
+    );
 
-    if (location.lat && location.lng) {
-      uri += `&pub_lat=${location.lat}&pub_lng=${location.lng}&pub_location=${location.address}`;
-    }
+    const searchParams = new URLSearchParams(params);
 
-    const encodedParams = encodeURI(uri);
-    const redirect = `https://app.solace.health/findadvocates?${encodedParams}`;
+    const redirect = `https://app.solace.health/findadvocates?${searchParams}`;
+
     if (window.analytics) {
       window.analytics.track("PERFORMED_SEARCH", {
         context: "MarketingHome",
