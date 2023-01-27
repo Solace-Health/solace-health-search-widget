@@ -2,6 +2,7 @@ import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import usePlacesAutocomplete, {
+  GeocodeResult,
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
@@ -15,41 +16,6 @@ interface LocationSearch {
   icon: React.ReactNode;
 }
 
-type GeocodeResult = {
-  address_components: [
-    {
-      long_name: string;
-      short_name: string;
-      types: ["postal_code"]; // Zip
-    },
-    {
-      long_name: string;
-      short_name: string;
-      types: ["locality", "political"]; // City
-    },
-    {
-      long_name: string;
-      short_name: string;
-      types: ["administrative_area_level_3", "political"];
-    },
-    {
-      long_name: string;
-      short_name: string;
-      types: ["administrative_area_level_2", "political"];
-    },
-    {
-      long_name: "New York";
-      short_name: string;
-      types: ["administrative_area_level_1", "political"]; // State
-    },
-    {
-      long_name: "United States";
-      short_name: "US";
-      types: ["country", "political"];
-    }
-  ];
-};
-
 const IconWrapper = styled("div")`
   display: flex;
   margin-right: 15px;
@@ -58,9 +24,9 @@ const IconWrapper = styled("div")`
   max-width: 26px;
 `;
 
-const getCityStateZip = (result: {
-  address_components: { short_name: string; types: string[] }[];
-}): { city: string; state: string; zip: string } => {
+const getCityStateZip = (
+  result: GeocodeResult
+): { city: string; state: string; zip: string } => {
   let city;
   let state;
   let zip;
@@ -118,7 +84,6 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
 
     getGeocode({ address: description })
       .then((results) => {
-        console.log(results);
         const { city, state, zip } = getCityStateZip(results[0]);
         const { lat, lng } = getLatLng(results[0]);
         onHandleSelect({
