@@ -103,7 +103,6 @@ const SearchWidget = () => {
 
     const redirect = `https://app.solace.health/findadvocates?${searchParams}`;
 
-    console.log(redirect);
     if (window.analytics) {
       window.analytics.track("PERFORMED_SEARCH", {
         context: "MarketingHome",
@@ -113,7 +112,7 @@ const SearchWidget = () => {
       });
     }
 
-    // window.location.assign(redirect);
+    window.location.assign(redirect);
   };
 
   const onSelectLocation = (data: any) => setValue("location", data);
