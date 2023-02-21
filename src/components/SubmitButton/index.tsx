@@ -11,23 +11,24 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     font-weight: 700;
     height: 50px;
     background: #1d4339;
-    border-radius: 10px;
     padding: 14px 40px !important;
     text-transform: none;
     z-index: 100;
-    margin-top: 10px;
+    border-radius: 0px 12px 12px 0px;
+    padding: 14px 30px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 18px;
 
-    span {
-      font-style: normal;
-      font-weight: 700;
-      padding: 14px 30px;
-      font-size: 18px;
-      line-height: 22px;
-      color: #ffffff;
-    }
+    box-shadow: none;
 
     &:hover {
       background: #285e50;
+    }
+
+    @media (max-width: 670px) {
+      font-size: 16px;
+      padding: 14px 15px !important;
     }
   `;
   return (
@@ -38,7 +39,7 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
       variant="contained"
       disableRipple
     >
-      Start Your Search
+      Find Your Advocate
     </StyledButton>
   );
 };

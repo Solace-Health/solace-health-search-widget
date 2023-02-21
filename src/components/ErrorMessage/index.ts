@@ -5,7 +5,7 @@ export default styled("div")`
   text-align: center;
   color: #ff0000;
   background-color: rgba(255, 255, 255, 0.7);
-  margin: 0 auto;
-  padding: 5px 7px;
+  margin: 10px 0;
+  padding: 10px 15px;
   border-radius: 5px;
 `;

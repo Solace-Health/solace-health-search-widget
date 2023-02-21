@@ -1,10 +1,16 @@
 .MuiAutocomplete-root {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
-.MuiFormControl-root {
-  margin-bottom: 5px 8px !important;
+input::placeholder {
+  color: #5A5A5A !important;
+  font-family: "Lato – Solace", "Lato", sans-serif !important;
+  opacity: 1 !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .MuiMenuItem-root {
@@ -27,8 +33,9 @@
   display: flex;
   align-self: center;
   border-radius: 8px;
-  width: 205px;
-  max-width: 205px;
+  width: 100%;
+  max-width: 360px;
+  padding: 10px 20px !important;
 }
 
 @media (min-width: 550px) {
@@ -55,10 +62,11 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  border-radius: 8px;
+  border-radius: 12px 0px 0px 12px;
   background: #ffffff;
   height: 50px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid transparent;
+  
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {
@@ -71,9 +79,6 @@
 
 .MuiAutocomplete-input {
   border-radius: 8px;
-  padding: 4px 0px !important;
-}
-
-.MuiInputAdornment-root {
-  margin-right: 0 !important;
+  padding: 0px !important;
+  width: 100% !important;
 }
