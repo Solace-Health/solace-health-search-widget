@@ -1,13 +1,13 @@
 import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import usePlacesAutocomplete, {
   GeocodeResult,
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import "./LocationSearch.css";
-import styled from "@emotion/styled";
 import { Location } from "../../Widget";
 
 interface LocationSearch {
@@ -43,6 +43,7 @@ const getCityStateZip = (
 };
 
 const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const {
     value,
     suggestions: { data },
@@ -102,7 +103,9 @@ const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
             ...params.InputProps,
           }}
           name="location"
-          placeholder="Enter Your City or Zip Code"
+          placeholder={
+            isMobile ? "Enter a City/Zip Code" : "Enter Your City or Zip Code"
+          }
           onSelect={(data: any) => handleSelect(data.target.value)}
           value={value}
           onChange={handleInput}

@@ -1,11 +1,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface SubmitButton {
   disabled?: boolean;
 }
 const SubmitButton = ({ disabled = false }: SubmitButton) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const StyledButton = styled(Button)`
     font-family: "Lato – Solace", "Lato", sans-serif;
     font-weight: 700;
@@ -23,12 +25,12 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     box-shadow: none;
 
     &:hover {
-      background: #285e50;
+      background: #000000;
     }
 
     @media (max-width: 670px) {
       font-size: 16px;
-      padding: 14px 15px !important;
+      padding: 14px 30px !important;
     }
   `;
   return (
@@ -39,7 +41,7 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
       variant="contained"
       disableRipple
     >
-      Find Your Advocate
+      {isMobile ? "Search" : "Find Your Advocate"}
     </StyledButton>
   );
 };
