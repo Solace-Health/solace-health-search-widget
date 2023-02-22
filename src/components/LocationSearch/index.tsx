@@ -8,21 +8,11 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import "./LocationSearch.css";
 import styled from "@emotion/styled";
-import { InputAdornment } from "@mui/material";
 import { Location } from "../../Widget";
 
 interface LocationSearch {
   onHandleSelect?: (data: Location) => void;
-  icon: React.ReactNode;
 }
-
-const IconWrapper = styled("div")`
-  display: flex;
-  margin-right: 15px;
-  width: 26px;
-  min-width: 26px;
-  max-width: 26px;
-`;
 
 const getCityStateZip = (
   result: GeocodeResult
@@ -31,26 +21,28 @@ const getCityStateZip = (
   let state;
   let zip;
 
-  result.address_components.forEach((component) => {
-    const isCity = component.types.some((type) => type === "locality");
-    const isState = component.types.some(
-      (type) => type === "administrative_area_level_1"
-    );
-    const isZip = component.types.some((type) => type === "postal_code");
+  result.address_components.forEach(
+    (component: { types: string[]; short_name: string }) => {
+      const isCity = component.types.some((type) => type === "locality");
+      const isState = component.types.some(
+        (type) => type === "administrative_area_level_1"
+      );
+      const isZip = component.types.some((type) => type === "postal_code");
 
-    if (isCity) {
-      city = component.short_name;
-    } else if (isState) {
-      state = component.short_name;
-    } else if (isZip) {
-      zip = component.short_name;
+      if (isCity) {
+        city = component.short_name;
+      } else if (isState) {
+        state = component.short_name;
+      } else if (isZip) {
+        zip = component.short_name;
+      }
     }
-  });
+  );
 
   return { city, state, zip };
 };
 
-const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
+const LocationSearch = ({ onHandleSelect }: LocationSearch) => {
   const {
     value,
     suggestions: { data },
@@ -104,24 +96,17 @@ const LocationSearch = ({ icon, onHandleSelect }: LocationSearch) => {
       disableClearable
       options={data.map((option) => option.description)}
       renderInput={(params) => (
-        <>
-          <TextField
-            {...params}
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconWrapper>{icon}</IconWrapper>
-                </InputAdornment>
-              ),
-            }}
-            name="location"
-            placeholder="City or Zip Code"
-            onSelect={(data: any) => handleSelect(data.target.value)}
-            value={value}
-            onChange={handleInput}
-          />
-        </>
+        <TextField
+          {...params}
+          InputProps={{
+            ...params.InputProps,
+          }}
+          name="location"
+          placeholder="Enter Your City or Zip Code"
+          onSelect={(data: any) => handleSelect(data.target.value)}
+          value={value}
+          onChange={handleInput}
+        />
       )}
     />
   );
