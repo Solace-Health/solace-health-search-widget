@@ -5,7 +5,7 @@
 }
 
 input::placeholder {
-  color: #5A5A5A !important;
+  color: #5a5a5a !important;
   font-family: "Lato – Solace", "Lato", sans-serif !important;
   opacity: 1 !important;
   font-style: normal;
@@ -66,7 +66,6 @@ input::placeholder {
   background: #ffffff;
   height: 50px;
   border: 1px solid transparent;
-  
 }
 
 .MuiFormControl-root .MuiAutocomplete-inputRoot fieldset {

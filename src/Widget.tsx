@@ -40,10 +40,7 @@ const SearchWidget = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    setValue,
-  } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const Container = styled.div`
     display: flex;
@@ -51,15 +48,15 @@ const SearchWidget = () => {
     align-items: center;
     position: relative;
   `;
-    
-    const Wrapper = styled.div`
+
+  const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   `;
 
-  const onSubmit = (data: { location: Location; }) => {
+  const onSubmit = (data: { location: Location }) => {
     const { location } = data;
 
     if (!location.address) {
@@ -102,9 +99,7 @@ const SearchWidget = () => {
         <Container>
           <Wrapper>
             <InputWrapper>
-              <LocationSearch
-                onHandleSelect={onSelectLocation}
-              />
+              <LocationSearch onHandleSelect={onSelectLocation} />
               {locationError && (
                 <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
               )}
