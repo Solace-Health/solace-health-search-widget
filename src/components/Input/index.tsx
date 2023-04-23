@@ -1,14 +1,18 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
+  name: string;
   labelName: string;
   type: string;
   margin?: string;
   maxWidth?: string;
 };
 
-const Input = ({ labelName, type, margin, maxWidth }: Props) => {
+const Input = ({ name, labelName, type, margin, maxWidth }: Props) => {
+  const { register } = useFormContext();
+
   const InputContainer = styled.div<{ margin?: string; maxWidth?: string }>`
     display: flex;
     position: relative;
@@ -44,7 +48,7 @@ const Input = ({ labelName, type, margin, maxWidth }: Props) => {
   return (
     <InputContainer margin={margin} maxWidth={maxWidth}>
       <label style={{ width: 'fit-content' }}>{labelName}</label>
-      <StyledInput type={type} />
+      <StyledInput type={type} {...register(name)} />
     </InputContainer>
   );
 };

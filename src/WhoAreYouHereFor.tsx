@@ -2,12 +2,15 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { Icons, NextButton, TrailAnimation } from './components';
 import { ButtonBase } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
   next: () => void;
 };
 
 const WhoAreYouHereFor = ({ next }: Props) => {
+  const { setValue } = useFormContext();
+
   const StyledHeader = styled.div`
     font-size: 30px;
     line-height: 34px;
@@ -57,10 +60,22 @@ const WhoAreYouHereFor = ({ next }: Props) => {
   return (
     <TrailAnimation>
       <StyledHeader>Who are you here for?</StyledHeader>
-      <StyledButton margin='36px 0 20px'>
+      <StyledButton
+        margin='36px 0 20px'
+        onClick={() => {
+          setValue('hereFor', 'self');
+          next();
+        }}
+      >
         <Icons.SunIcon /> <span>Myself</span>
       </StyledButton>
-      <StyledButton margin='0 0 36px'>
+      <StyledButton
+        margin='0 0 36px'
+        onClick={() => {
+          setValue('hereFor', 'loved_one');
+          next();
+        }}
+      >
         <Icons.HeartIcon />
         <span> My Loved One</span>
       </StyledButton>
