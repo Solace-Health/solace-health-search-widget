@@ -3,13 +3,15 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-interface SubmitButton {
-  disabled?: boolean;
-}
-const SubmitButton = ({ disabled = false }: SubmitButton) => {
+type Props = {
+  next: () => void;
+};
+
+const NextButton = ({ next }: Props) => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const StyledButton = styled(Button)`
-    max-width: 200px;
+    max-width: 160px;
+    width: 100%;
     font-family: 'Lato-Solace', 'Lato', sans-serif;
     font-weight: 700;
     height: 50px;
@@ -20,6 +22,7 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     font-size: 18px;
     line-height: 18px;
     transition: 0.3s;
+    color: #fff;
 
     &:hover {
       background-color: #285e50;
@@ -31,10 +34,10 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     }
   `;
   return (
-    <StyledButton disabled={disabled} size='large' type='submit' variant='contained' disableRipple>
-      Start Matching
+    <StyledButton onClick={next} type='button' disableRipple>
+      Next
     </StyledButton>
   );
 };
 
-export default SubmitButton;
+export default NextButton;

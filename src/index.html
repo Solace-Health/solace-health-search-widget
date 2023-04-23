@@ -9,37 +9,42 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Lato:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @font-face {
+        font-family: 'Mollie Glaston';
+        src: url('/fonts/Mollie-Glaston.woff2') format('woff2'), url('/fonts/Mollie-Glaston.woff') format('woff');
+        font-weight: 400;
+        font-display: swap;
+      }
+    </style>
     <script>
       !(function () {
         var analytics = (window.analytics = window.analytics || []);
         if (!analytics.initialize)
-          if (analytics.invoked)
-            window.console &&
-              console.error &&
-              console.error("Segment snippet included twice.");
+          if (analytics.invoked) window.console && console.error && console.error('Segment snippet included twice.');
           else {
             analytics.invoked = !0;
             analytics.methods = [
-              "trackSubmit",
-              "trackClick",
-              "trackLink",
-              "trackForm",
-              "pageview",
-              "identify",
-              "reset",
-              "group",
-              "track",
-              "ready",
-              "alias",
-              "debug",
-              "page",
-              "once",
-              "off",
-              "on",
-              "addSourceMiddleware",
-              "addIntegrationMiddleware",
-              "setAnonymousId",
-              "addDestinationMiddleware",
+              'trackSubmit',
+              'trackClick',
+              'trackLink',
+              'trackForm',
+              'pageview',
+              'identify',
+              'reset',
+              'group',
+              'track',
+              'ready',
+              'alias',
+              'debug',
+              'page',
+              'once',
+              'off',
+              'on',
+              'addSourceMiddleware',
+              'addIntegrationMiddleware',
+              'setAnonymousId',
+              'addDestinationMiddleware',
             ];
             analytics.factory = function (e) {
               return function () {
@@ -54,28 +59,24 @@
               analytics[key] = analytics.factory(key);
             }
             analytics.load = function (key, e) {
-              var t = document.createElement("script");
-              t.type = "text/javascript";
+              var t = document.createElement('script');
+              t.type = 'text/javascript';
               t.async = !0;
-              t.src =
-                "https://cdn.segment.com/analytics.js/v1/" +
-                key +
-                "/analytics.min.js";
-              var n = document.getElementsByTagName("script")[0];
+              t.src = 'https://cdn.segment.com/analytics.js/v1/' + key + '/analytics.min.js';
+              var n = document.getElementsByTagName('script')[0];
               n.parentNode.insertBefore(t, n);
               analytics._loadOptions = e;
             };
-            analytics._writeKey = "TM5zShhhksGPQUjiu1dYZRBbNS8fuSMK";
-            analytics.SNIPPET_VERSION = "4.15.3";
-            analytics.load("AvCixvpWF65AhYDHr9QrxAINewZTAwx4");
+            analytics._writeKey = 'TM5zShhhksGPQUjiu1dYZRBbNS8fuSMK';
+            analytics.SNIPPET_VERSION = '4.15.3';
+            analytics.load('AvCixvpWF65AhYDHr9QrxAINewZTAwx4');
           }
       })();
     </script>
     <meta charset="UTF-8" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-wP2VB4zoRbb8SxkdXVihodK3LcHIJxM&libraries=places"></script>
     <title>React Boilerplate</title>
   </head>
-  <body style="background: #3f937c; padding: 80px 0">
-    <div id="solaceFormEmbed"></div>
+  <body style="background: transparent">
+    <div id="solaceEntryWidget"></div>
   </body>
 </html>

@@ -1,28 +1,32 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { ButtonBase } from '@mui/material';
 
-interface SubmitButton {
-  disabled?: boolean;
-}
-const SubmitButton = ({ disabled = false }: SubmitButton) => {
+type Props = {
+  goBack: () => void;
+};
+
+const BackButton = ({ goBack }: Props) => {
   const isMobile = useMediaQuery('(max-width:600px)');
-  const StyledButton = styled(Button)`
-    max-width: 200px;
+  const StyledButton = styled(ButtonBase)`
+    min-width: 100px;
     font-family: 'Lato-Solace', 'Lato', sans-serif;
     font-weight: 700;
     height: 50px;
-    background-color: #285e50;
+    border: 1px solid #bed3cc;
+    background-color: #fff;
+    color: #285e50;
     text-transform: none;
     z-index: 100;
     border-radius: 10px;
     font-size: 18px;
     line-height: 18px;
     transition: 0.3s;
+    margin-right: 10px;
 
     &:hover {
-      background-color: #285e50;
+      background-color: #fff;
       transform: scale(1.08);
     }
 
@@ -31,10 +35,10 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     }
   `;
   return (
-    <StyledButton disabled={disabled} size='large' type='submit' variant='contained' disableRipple>
-      Start Matching
+    <StyledButton onClick={goBack} disableRipple>
+      Back
     </StyledButton>
   );
 };
 
-export default SubmitButton;
+export default BackButton;
