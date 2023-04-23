@@ -1,6 +1,6 @@
-import * as React from 'react';
-import styled from '@emotion/styled';
-import { useFormContext } from 'react-hook-form';
+import * as React from "react";
+import styled from "@emotion/styled";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   name: string;
@@ -17,13 +17,13 @@ const Input = ({ name, labelName, type, margin, maxWidth }: Props) => {
     display: flex;
     position: relative;
     flex-direction: column;
-    max-width: ${props => (props.maxWidth ? props.maxWidth : '100%')};
+    max-width: ${(props) => (props.maxWidth ? props.maxWidth : "100%")};
     text-align: start;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     text-transform: none;
     font-size: 18px;
     line-height: 18px;
-    margin: ${props => (props.margin ? props.margin : '20px 0 0 0')};
+    margin: ${(props) => (props.margin ? props.margin : "20px 0 0 0")};
 
     @media (max-width: 670px) {
       font-size: 16px;
@@ -37,7 +37,7 @@ const Input = ({ name, labelName, type, margin, maxWidth }: Props) => {
     height: 48px;
     padding: 0 22px;
     margin-top: 8px;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-size: 18px;
 
     &:focus {
@@ -47,7 +47,7 @@ const Input = ({ name, labelName, type, margin, maxWidth }: Props) => {
 
   return (
     <InputContainer margin={margin} maxWidth={maxWidth}>
-      <label style={{ width: 'fit-content' }}>{labelName}</label>
+      <label style={{ width: "fit-content" }}>{labelName}</label>
       <StyledInput type={type} {...register(name)} />
     </InputContainer>
   );

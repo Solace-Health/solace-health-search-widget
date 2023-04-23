@@ -11,8 +11,9 @@
     />
     <style>
       @font-face {
-        font-family: 'Mollie Glaston';
-        src: url('/fonts/Mollie-Glaston.woff2') format('woff2'), url('/fonts/Mollie-Glaston.woff') format('woff');
+        font-family: "Mollie Glaston";
+        src: url("/fonts/Mollie-Glaston.woff2") format("woff2"),
+          url("/fonts/Mollie-Glaston.woff") format("woff");
         font-weight: 400;
         font-display: swap;
       }
@@ -21,30 +22,33 @@
       !(function () {
         var analytics = (window.analytics = window.analytics || []);
         if (!analytics.initialize)
-          if (analytics.invoked) window.console && console.error && console.error('Segment snippet included twice.');
+          if (analytics.invoked)
+            window.console &&
+              console.error &&
+              console.error("Segment snippet included twice.");
           else {
             analytics.invoked = !0;
             analytics.methods = [
-              'trackSubmit',
-              'trackClick',
-              'trackLink',
-              'trackForm',
-              'pageview',
-              'identify',
-              'reset',
-              'group',
-              'track',
-              'ready',
-              'alias',
-              'debug',
-              'page',
-              'once',
-              'off',
-              'on',
-              'addSourceMiddleware',
-              'addIntegrationMiddleware',
-              'setAnonymousId',
-              'addDestinationMiddleware',
+              "trackSubmit",
+              "trackClick",
+              "trackLink",
+              "trackForm",
+              "pageview",
+              "identify",
+              "reset",
+              "group",
+              "track",
+              "ready",
+              "alias",
+              "debug",
+              "page",
+              "once",
+              "off",
+              "on",
+              "addSourceMiddleware",
+              "addIntegrationMiddleware",
+              "setAnonymousId",
+              "addDestinationMiddleware",
             ];
             analytics.factory = function (e) {
               return function () {
@@ -59,17 +63,20 @@
               analytics[key] = analytics.factory(key);
             }
             analytics.load = function (key, e) {
-              var t = document.createElement('script');
-              t.type = 'text/javascript';
+              var t = document.createElement("script");
+              t.type = "text/javascript";
               t.async = !0;
-              t.src = 'https://cdn.segment.com/analytics.js/v1/' + key + '/analytics.min.js';
-              var n = document.getElementsByTagName('script')[0];
+              t.src =
+                "https://cdn.segment.com/analytics.js/v1/" +
+                key +
+                "/analytics.min.js";
+              var n = document.getElementsByTagName("script")[0];
               n.parentNode.insertBefore(t, n);
               analytics._loadOptions = e;
             };
-            analytics._writeKey = 'TM5zShhhksGPQUjiu1dYZRBbNS8fuSMK';
-            analytics.SNIPPET_VERSION = '4.15.3';
-            analytics.load('AvCixvpWF65AhYDHr9QrxAINewZTAwx4');
+            analytics._writeKey = "TM5zShhhksGPQUjiu1dYZRBbNS8fuSMK";
+            analytics.SNIPPET_VERSION = "4.15.3";
+            analytics.load("AvCixvpWF65AhYDHr9QrxAINewZTAwx4");
           }
       })();
     </script>

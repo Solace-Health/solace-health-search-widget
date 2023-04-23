@@ -1,8 +1,8 @@
-import * as React from 'react';
-import styled from '@emotion/styled';
-import { Icons, NextButton, TrailAnimation } from './components';
-import { ButtonBase } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import * as React from "react";
+import styled from "@emotion/styled";
+import { Icons, NextButton, TrailAnimation } from "./components";
+import { ButtonBase } from "@mui/material";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   next: () => void;
@@ -14,8 +14,8 @@ const WhoAreYouHereFor = ({ next }: Props) => {
   const StyledHeader = styled.div`
     font-size: 30px;
     line-height: 34px;
-    font-family: 'Mollie glaston';
-    font-feature-settings: 'liga' 1, 'kern';
+    font-family: "Mollie glaston";
+    font-feature-settings: "liga" 1, "kern";
     font-weight: 400;
     text-align: center;
     letter-spacing: 0.005em;
@@ -30,7 +30,7 @@ const WhoAreYouHereFor = ({ next }: Props) => {
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-weight: 500;
     border: 1px solid #bed3cc;
     background-color: #fff;
@@ -41,7 +41,7 @@ const WhoAreYouHereFor = ({ next }: Props) => {
     font-size: 20px;
     line-height: 20px;
     padding: 15px;
-    margin: ${props => (props.margin ? props.margin : '20px 0 0 0')};
+    margin: ${(props) => (props.margin ? props.margin : "20px 0 0 0")};
 
     span {
       margin-top: 12px;
@@ -61,18 +61,18 @@ const WhoAreYouHereFor = ({ next }: Props) => {
     <TrailAnimation>
       <StyledHeader>Who are you here for?</StyledHeader>
       <StyledButton
-        margin='36px 0 20px'
+        margin="36px 0 20px"
         onClick={() => {
-          setValue('hereFor', 'self');
+          setValue("hereFor", "self");
           next();
         }}
       >
         <Icons.SunIcon /> <span>Myself</span>
       </StyledButton>
       <StyledButton
-        margin='0 0 36px'
+        margin="0 0 36px"
         onClick={() => {
-          setValue('hereFor', 'loved_one');
+          setValue("hereFor", "loved_one");
           next();
         }}
       >

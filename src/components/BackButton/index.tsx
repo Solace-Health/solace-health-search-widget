@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { ButtonBase } from '@mui/material';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { ButtonBase } from "@mui/material";
 
 type Props = {
   goBack: () => void;
 };
 
 const BackButton = ({ goBack }: Props) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
   const StyledButton = styled(ButtonBase)`
     min-width: 100px;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-weight: 700;
     height: 50px;
     border: 1px solid #bed3cc;

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import PersonalInfo from './PersonalInfo';
-import WhoAreYouHereFor from './WhoAreYouHereFor';
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import styled from '@emotion/styled';
+import * as React from "react";
+import PersonalInfo from "./PersonalInfo";
+import WhoAreYouHereFor from "./WhoAreYouHereFor";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import styled from "@emotion/styled";
 declare global {
   interface Window {
     analytics: any;
@@ -20,7 +20,7 @@ const SearchWidget = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-size: 16px;
     line-height: 19px;
     text-align: center;
@@ -45,21 +45,27 @@ const SearchWidget = () => {
     }
   `;
 
-  const onSubmit = (values: { hereFor: string; firstName: string; lastName: string; email: string; phone: string }) => {
+  const onSubmit = (values: {
+    hereFor: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+  }) => {
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     };
 
-    fetch('http://localhost:3001/v1/api/prospects', requestOptions)
-      .then(response => response.json())
-      .then(data => {
+    fetch("http://localhost:3001/v1/api/prospects", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
         if (data.id) {
           const redirect = `https://app.solace.health/findadvocates?prospectId=${data.id}`;
           if (window.analytics) {
-            window.analytics.track('FUNNEL_ENTRY', {
-              context: 'MarketingHome',
+            window.analytics.track("FUNNEL_ENTRY", {
+              context: "MarketingHome",
               location,
               redirect_url: redirect,
             });

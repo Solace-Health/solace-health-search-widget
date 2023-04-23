@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 type Props = {
   next: () => void;
 };
 
 const NextButton = ({ next }: Props) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
   const StyledButton = styled(Button)`
     max-width: 160px;
     width: 100%;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-weight: 700;
     height: 50px;
     background-color: #285e50;
@@ -34,7 +34,7 @@ const NextButton = ({ next }: Props) => {
     }
   `;
   return (
-    <StyledButton onClick={next} type='button' disableRipple>
+    <StyledButton onClick={next} type="button" disableRipple>
       Next
     </StyledButton>
   );

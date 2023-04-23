@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface SubmitButton {
   disabled?: boolean;
 }
 const SubmitButton = ({ disabled = false }: SubmitButton) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
   const StyledButton = styled(Button)`
     max-width: 200px;
-    font-family: 'Lato-Solace', 'Lato', sans-serif;
+    font-family: "Lato-Solace", "Lato", sans-serif;
     font-weight: 700;
     height: 50px;
     background-color: #285e50;
@@ -31,7 +31,13 @@ const SubmitButton = ({ disabled = false }: SubmitButton) => {
     }
   `;
   return (
-    <StyledButton disabled={disabled} size='large' type='submit' variant='contained' disableRipple>
+    <StyledButton
+      disabled={disabled}
+      size="large"
+      type="submit"
+      variant="contained"
+      disableRipple
+    >
       Start Matching
     </StyledButton>
   );
