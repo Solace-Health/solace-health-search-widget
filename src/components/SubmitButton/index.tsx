@@ -1,6 +1,6 @@
-import * as React from 'react'
-import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
 const StyledButton = styled(Button)`
   max-width: 200px;
@@ -23,15 +23,15 @@ const StyledButton = styled(Button)`
   @media (max-width: 670px) {
     font-size: 16px;
   }
-`
+`;
 
 interface SubmitButton {
-  disabled?: boolean
+  disabled?: boolean;
 }
 const SubmitButton = ({ disabled = false }: SubmitButton) => (
   <StyledButton disabled={disabled} size='large' type='submit' variant='contained' disableRipple>
     Start Matching
   </StyledButton>
-)
+);
 
-export default SubmitButton
+export default SubmitButton;
