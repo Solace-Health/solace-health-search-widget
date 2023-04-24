@@ -1,9 +1,11 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
+import * as React from 'react'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const StyledButton = styled(Button)`
-  max-width: 200px;
+  max-width: 160px;
+  width: 100%;
   font-family: 'Lato-Solace', 'Lato', sans-serif;
   font-weight: 700;
   height: 50px;
@@ -14,6 +16,7 @@ const StyledButton = styled(Button)`
   font-size: 18px;
   line-height: 18px;
   transition: 0.3s;
+  color: #fff;
 
   &:hover {
     background-color: #285e50;
@@ -23,15 +26,16 @@ const StyledButton = styled(Button)`
   @media (max-width: 670px) {
     font-size: 16px;
   }
-`;
+`
 
-interface SubmitButton {
-  disabled?: boolean;
+interface Props {
+  next: () => void
 }
-const SubmitButton = ({ disabled = false }: SubmitButton) => (
-  <StyledButton disabled={disabled} size='large' type='submit' variant='contained' disableRipple>
-    Start Matching
-  </StyledButton>
-);
 
-export default SubmitButton;
+const NextButton = ({ next }: Props) => (
+  <StyledButton onClick={next} type='button' disableRipple>
+    Next
+  </StyledButton>
+)
+
+export default NextButton

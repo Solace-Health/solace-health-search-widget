@@ -1,5 +1,5 @@
 {
-  "name": "solace-search",
+  "name": "solace-entry-widget",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,13 +11,13 @@
   "author": "Solace Developer",
   "license": "ISC",
   "dependencies": {
-    "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.10.14",
-    "lodash": "^4.17.21",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.12.1",
+    "@react-spring/web": "^9.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.4",
-    "use-places-autocomplete": "^4.0.0"
+    "react-hook-form": "^7.39.4"
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.0",
@@ -25,7 +25,6 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "babel-plugin-import": "^1.13.6",
-    "css-loader": "^6.7.2",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.7.1",
     "source-map-loader": "^4.0.1",

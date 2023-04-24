@@ -1,114 +1,108 @@
-import * as React from "react";
-import {
-  LocationSearch,
-  SubmitButton,
-  Icons,
-  ErrorMessage,
-} from "./components";
-import { useForm, FormProvider } from "react-hook-form";
-import styled from "@emotion/styled";
-import { omitBy, isNil } from "lodash";
+import * as React from 'react'
+import PersonalInfo from './PersonalInfo'
+import WhoAreYouHereFor from './WhoAreYouHereFor'
+import { useForm, FormProvider } from 'react-hook-form'
+import styled from '@emotion/styled'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  margin: 10px;
+  max-width: 398px;
+  background: #ffffff;
+  border: 1px solid #bed3cc;
+  box-shadow: 2px 2px 20px #d4e2dd;
+  border-radius: 20px;
+  padding: 36px 50px;
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 670px) {
+    font-size: 16px;
+    padding: 36px 50px;
+  }
+`
 declare global {
   interface Window {
-    analytics: any;
+    analytics: any
   }
 }
 
-export type Location = {
-  address: string;
-  lat: number;
-  lng: number;
-  city: string;
-  state: string;
-  zip: string;
-};
-
-const InputWrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  max-width: 360px;
-  min-width: 150px;
-  width: 100%;
-`;
-
 const SearchWidget = () => {
-  const [locationError, setLocationError] = React.useState(false);
-  const methods = useForm({
-    defaultValues: {
-      location: {},
-    },
-  });
+  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false)
+  const methods = useForm()
 
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit } = methods
 
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  `;
-
-  const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  `;
-
-  const onSubmit = (data: { location: Location }) => {
-    const { location } = data;
-
-    if (!location.address) {
-      setLocationError(true);
-      return;
+  const onSubmit = ({
+    hereFor,
+    firstName,
+    lastName,
+    email,
+    phone
+  }: {
+    hereFor: string
+    firstName: string
+    lastName: string
+    email: string
+    phone: string
+  }) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        here_for: hereFor,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone
+      })
     }
 
-    const params = omitBy(
-      {
-        pub_lat: location.lat?.toString(),
-        pub_lng: location.lng?.toString(),
-        pub_location: location.address,
-        city: location.city,
-        state: location.state,
-        zip: location.zip,
-      },
-      isNil
-    );
-
-    const searchParams = new URLSearchParams(params);
-
-    const redirect = `https://app.solace.health/findadvocates?${searchParams}`;
-
-    if (window.analytics) {
-      window.analytics.track("PERFORMED_SEARCH", {
-        context: "MarketingHome",
-        location,
-        redirect_url: redirect,
-      });
-    }
-
-    window.location.assign(redirect);
-  };
-
-  const onSelectLocation = (data: any) => setValue("location", data);
+    fetch('http://localhost:3001/v1/api/prospects', requestOptions)
+      .then(async response => await response.json())
+      .then(data => {
+        if (data.id) {
+          const redirect = `https://app.solace.health/findadvocates?prospectId=${data.id}`
+          if (window.analytics) {
+            window.analytics.track('FUNNEL_ENTRY', {
+              context: 'MarketingHome',
+              location,
+              redirect_url: redirect
+            })
+          }
+          window.location.assign(redirect)
+        }
+      })
+  }
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container>
           <Wrapper>
-            <InputWrapper>
-              <LocationSearch onHandleSelect={onSelectLocation} />
-              {locationError && (
-                <ErrorMessage>Please enter a valid city or zip</ErrorMessage>
-              )}
-            </InputWrapper>
-            <SubmitButton disabled={false} />
+            {showPersonalInfo
+              ? (
+              <PersonalInfo goBack={() => { setShowPersonalInfo(false) }} />
+                )
+              : (
+              <WhoAreYouHereFor next={() => { setShowPersonalInfo(true) }} />
+                )}
           </Wrapper>
         </Container>
       </form>
     </FormProvider>
-  );
-};
-export default SearchWidget;
+  )
+}
+export default SearchWidget
