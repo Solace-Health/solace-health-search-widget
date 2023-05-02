@@ -23,7 +23,7 @@ const StyledButton = styled(ButtonBase)<{ margin?: string }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   font-weight: 500;
   border: 1px solid #bed3cc;
   background-color: #fff;
