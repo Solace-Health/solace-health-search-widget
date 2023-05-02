@@ -74,7 +74,7 @@ const SearchWidget = () => {
       .then(async response => await response.json())
       .then(data => {
         if (data.id) {
-          const redirect = `https://find.solace.health/?prospectId=${data.id}`
+          const redirect = `https://find.solace.health/?p_id=${data.id}`
           if (window.analytics) {
             window.analytics.track('FUNNEL_ENTRY', {
               context: 'MarketingHome',
