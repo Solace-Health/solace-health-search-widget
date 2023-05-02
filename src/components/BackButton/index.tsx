@@ -4,7 +4,7 @@ import { ButtonBase } from '@mui/material'
 
 const StyledButton = styled(ButtonBase)`
   min-width: 100px;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   font-weight: 700;
   height: 50px;
   border: 1px solid #bed3cc;

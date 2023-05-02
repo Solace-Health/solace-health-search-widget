@@ -9,7 +9,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   font-size: 16px;
   line-height: 19px;
   text-align: center;
@@ -70,11 +70,11 @@ const SearchWidget = () => {
       })
     }
 
-    fetch('http://localhost:3001/v1/api/prospects', requestOptions)
+    fetch('https://api.solace.health/v1/api/prospects', requestOptions)
       .then(async response => await response.json())
       .then(data => {
         if (data.id) {
-          const redirect = `https://app.solace.health/findadvocates?prospectId=${data.id}`
+          const redirect = `https://find.solace.health/?prospectId=${data.id}`
           if (window.analytics) {
             window.analytics.track('FUNNEL_ENTRY', {
               context: 'MarketingHome',

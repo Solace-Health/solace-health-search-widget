@@ -8,7 +8,7 @@ const InputContainer = styled.div<{ margin?: string, maxWidth?: string }>`
   flex-direction: column;
   max-width: ${props => (props.maxWidth ? props.maxWidth : '100%')};
   text-align: start;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   text-transform: none;
   font-size: 18px;
   line-height: 18px;
@@ -26,7 +26,7 @@ const StyledInput = styled.input`
   height: 48px;
   padding: 0 22px;
   margin-top: 8px;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   font-size: 18px;
 
   &:focus {

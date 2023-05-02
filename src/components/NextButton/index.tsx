@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 const StyledButton = styled(Button)`
   max-width: 160px;
   width: 100%;
-  font-family: 'Lato-Solace', 'Lato', sans-serif;
+  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
   font-weight: 700;
   height: 50px;
   background-color: #285e50;
