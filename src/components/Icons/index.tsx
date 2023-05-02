@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 const SunIcon = (): JSX.Element => (
   <svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' fill='none'>
@@ -78,7 +78,7 @@ const SunIcon = (): JSX.Element => (
       </clipPath>
     </defs>
   </svg>
-)
+);
 
 const HeartIcon = (): JSX.Element => (
   <svg xmlns='http://www.w3.org/2000/svg' width='60' height='51' viewBox='0 0 60 51' fill='none'>
@@ -95,9 +95,9 @@ const HeartIcon = (): JSX.Element => (
       fill='#D7A13B'
     />
   </svg>
-)
+);
 
 export default {
   SunIcon,
-  HeartIcon
-}
+  HeartIcon,
+};
