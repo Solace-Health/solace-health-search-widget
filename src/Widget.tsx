@@ -42,6 +42,7 @@ declare global {
 const SearchWidget = () => {
   const [showPersonalInfo, setShowPersonalInfo] = React.useState(false)
   const methods = useForm()
+  const [isSubmitting, setSubmitting] = React.useState(false)
 
   const { handleSubmit } = methods
 
@@ -58,6 +59,8 @@ const SearchWidget = () => {
     email: string
     phone: string
   }) => {
+    if (isSubmitting) return;
+    setSubmitting(true)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -82,6 +85,7 @@ const SearchWidget = () => {
               redirect_url: redirect
             })
           }
+          setSubmitting(false)
           window.location.assign(redirect)
         }
       })
@@ -94,7 +98,7 @@ const SearchWidget = () => {
           <Wrapper>
             {showPersonalInfo
               ? (
-              <PersonalInfo goBack={() => { setShowPersonalInfo(false) }} />
+              <PersonalInfo goBack={() => { setShowPersonalInfo(false) }} isSubmitting={isSubmitting} />
                 )
               : (
               <WhoAreYouHereFor next={() => { setShowPersonalInfo(true) }} />

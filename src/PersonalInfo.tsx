@@ -11,9 +11,10 @@ const ButtonContainer = styled.div`
 
 interface Props {
   goBack: () => void
+  isSubmitting: boolean
 }
 
-const PersonalInfo = ({ goBack }: Props) => (
+const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
   <TrailAnimation>
     <div>
       We'll never send spam, but we will use this to connect you with the <b>best care for your unique concerns.</b>
@@ -32,7 +33,7 @@ const PersonalInfo = ({ goBack }: Props) => (
     <Input type='tel' name='phone' labelName='Mobile Phone' margin='20px 0 24px 0' />
     <ButtonContainer>
       <BackButton goBack={goBack} />
-      <SubmitButton disabled={false} />
+      <SubmitButton disabled={false} loading={isSubmitting} />
     </ButtonContainer>
   </TrailAnimation>
 )
