@@ -85,8 +85,8 @@ const SearchWidget = () => {
               redirect_url: redirect
             })
           }
-          setSubmitting(false)
           window.location.assign(redirect)
+          setSubmitting(false)
         }
       })
   }
