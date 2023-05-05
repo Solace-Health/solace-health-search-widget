@@ -1,21 +1,23 @@
-import * as React from 'react'
-import Input from './components/Input'
-import styled from '@emotion/styled'
-import { SubmitButton, BackButton, TrailAnimation } from './components'
+import * as React from 'react';
+import { animated } from '@react-spring/web';
+import Input from './components/Input';
+import styled from '@emotion/styled';
+import { SubmitButton, BackButton, TrailAnimation } from './components';
 
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 interface Props {
-  goBack: () => void
-  isSubmitting: boolean
+  goBack: () => void;
+  isSubmitting: boolean;
+  style: unknown;
 }
 
-const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
-  <TrailAnimation>
+const PersonalInfo = ({ goBack, isSubmitting, style }: Props) => (
+  <animated.div style={style}>
     <div>
       We'll never send spam, but we will use this to connect you with the <b>best care for your unique concerns.</b>
     </div>
@@ -23,7 +25,7 @@ const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
       }}
     >
       <Input type='text' name='firstName' labelName='Your First Name' margin='20px 12px 0 0' maxWidth='48%' />
@@ -35,7 +37,7 @@ const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
       <BackButton goBack={goBack} />
       <SubmitButton disabled={false} loading={isSubmitting} />
     </ButtonContainer>
-  </TrailAnimation>
-)
+  </animated.div>
+);
 
-export default PersonalInfo
+export default PersonalInfo;

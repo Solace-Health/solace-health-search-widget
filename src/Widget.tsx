@@ -1,8 +1,9 @@
-import * as React from 'react'
-import PersonalInfo from './PersonalInfo'
-import WhoAreYouHereFor from './WhoAreYouHereFor'
-import { useForm, FormProvider } from 'react-hook-form'
-import styled from '@emotion/styled'
+import * as React from 'react';
+import PersonalInfo from './PersonalInfo';
+import WhoAreYouHereFor from './WhoAreYouHereFor';
+import { useForm, FormProvider } from 'react-hook-form';
+import styled from '@emotion/styled';
+import { animated, useTransition, config, AnimatedProps } from '@react-spring/web';
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,8 @@ const Container = styled.div`
   box-shadow: 2px 2px 20px #d4e2dd;
   border-radius: 20px;
   padding: 36px 50px;
-`
+  overflow: hidden;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,35 +34,76 @@ const Wrapper = styled.div`
     font-size: 16px;
     padding: 36px 50px;
   }
-`
+`;
 declare global {
   interface Window {
-    analytics: any
+    analytics: any;
   }
 }
 
-const SearchWidget = () => {
-  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false)
-  const methods = useForm()
-  const [isSubmitting, setSubmitting] = React.useState(false)
+const pages: ((
+  props: AnimatedProps<{
+    setShowPersonalInfo: any;
+    style: Record<string, unknown>;
+    isSubmitting: any;
+  }>
+) => React.ReactElement)[] = [
+  ({ setShowPersonalInfo, style }) => (
+    <WhoAreYouHereFor
+      next={() => {
+        setShowPersonalInfo(true);
+      }}
+      style={style}
+    />
+  ),
+  ({ setShowPersonalInfo, style, isSubmitting }) => (
+    <PersonalInfo
+      goBack={() => {
+        setShowPersonalInfo(false);
+      }}
+      isSubmitting={isSubmitting}
+      style={style}
+    />
+  ),
+];
 
-  const { handleSubmit } = methods
+const SearchWidget = () => {
+  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
+  const methods = useForm();
+  const [isSubmitting, setSubmitting] = React.useState(false);
+  const transitions = useTransition(showPersonalInfo ? 1 : 0, {
+    config: {
+      duration: 180,
+    },
+    from: {
+      opacity: 0,
+      transform: showPersonalInfo ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)',
+    },
+    enter: { opacity: 1, transform: 'translate3d(0%, 0px, 0px)' },
+    leave: {
+      opacity: 0,
+      transform: showPersonalInfo ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)',
+    },
+    exitBeforeEnter: true,
+  });
+
+  const { handleSubmit } = methods;
 
   const onSubmit = ({
     hereFor,
     firstName,
     lastName,
     email,
-    phone
+    phone,
   }: {
-    hereFor: string
-    firstName: string
-    lastName: string
-    email: string
-    phone: string
+    hereFor: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
   }) => {
     if (isSubmitting) return;
-    setSubmitting(true)
+    setSubmitting(true);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,44 +112,41 @@ const SearchWidget = () => {
         first_name: firstName,
         last_name: lastName,
         email,
-        phone
-      })
-    }
+        phone,
+      }),
+    };
 
     fetch('https://api.solace.health/v1/api/prospects', requestOptions)
       .then(async response => await response.json())
       .then(data => {
         if (data.id) {
-          const redirect = `https://find.solace.health/?p_id=${data.id}`
+          const redirect = `https://find.solace.health/?p_id=${data.id}`;
           if (window.analytics) {
             window.analytics.track('FUNNEL_ENTRY', {
               context: 'MarketingHome',
               location,
-              redirect_url: redirect
-            })
+              redirect_url: redirect,
+            });
           }
-          window.location.assign(redirect)
-          setSubmitting(false)
+          window.location.assign(redirect);
+          setSubmitting(false);
         }
-      })
-  }
+      });
+  };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container>
           <Wrapper>
-            {showPersonalInfo
-              ? (
-              <PersonalInfo goBack={() => { setShowPersonalInfo(false) }} isSubmitting={isSubmitting} />
-                )
-              : (
-              <WhoAreYouHereFor next={() => { setShowPersonalInfo(true) }} />
-                )}
+            {transitions((style, i) => {
+              const Page = pages[i];
+              return <Page style={style} setShowPersonalInfo={setShowPersonalInfo} isSubmitting={isSubmitting} />;
+            })}
           </Wrapper>
         </Container>
       </form>
     </FormProvider>
-  )
-}
-export default SearchWidget
+  );
+};
+export default SearchWidget;
