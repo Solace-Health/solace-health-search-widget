@@ -46,7 +46,7 @@ const SearchWidget = () => {
 
   const { handleSubmit } = methods
 
-  const onSubmit = ({
+  const onSubmit = async ({
     hereFor,
     firstName,
     lastName,
@@ -73,23 +73,26 @@ const SearchWidget = () => {
       })
     }
 
-    fetch('https://api.solace.health/v1/api/prospects', requestOptions)
-      .then(async response => await response.json())
-      .then(data => {
-        if (data.id) {
-          const redirect = `https://find.solace.health/?p_id=${data.id}`
-          if (window.analytics) {
-            window.analytics.track('FUNNEL_ENTRY', {
-              context: 'MarketingHome',
-              location,
-              redirect_url: redirect
-            })
-          }
-          location.href = redirect;
-          setSubmitting(false)
-          return false;
-        }
-      })
+    const response = await fetch('https://api.solace.health/v1/api/prospects', requestOptions)
+    const data: { id: string } = await response.json()
+    
+    if (data.id) {
+      const redirect = `https://find.solace.health/?p_id=${data.id}`
+      if (window.analytics) {
+        window.analytics.track('FUNNEL_ENTRY', {
+          context: 'MarketingHome',
+          location,
+          redirect_url: redirect
+        })
+      }
+      setTimeout(() => { 
+        window.location.href = redirect
+        console.log(redirect)
+      }, 500);
+
+      setSubmitting(false)
+      return false;
+    }
   }
 
   return (
