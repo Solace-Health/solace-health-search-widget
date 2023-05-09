@@ -41,11 +41,11 @@ declare global {
 
 const SearchWidget = () => {
   const [showPersonalInfo, setShowPersonalInfo] = React.useState(false)
-  const methods = useForm()
+  const methods = useForm({ mode: 'onSubmit', reValidateMode: 'onChange' })
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const { handleSubmit } = methods
-
+  const { handleSubmit, watch } = methods
+  watch()
   const onSubmit = async ({
     hereFor,
     firstName,

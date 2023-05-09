@@ -17,7 +17,8 @@
     "@react-spring/web": "^9.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.4"
+    "react-hook-form": "^7.39.4",
+    "react-imask": "^6.6.1"
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.0",
