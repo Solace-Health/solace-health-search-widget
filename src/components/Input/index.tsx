@@ -62,7 +62,7 @@ const Input = ({
   rules,
 }: Props) => {
   const { control, formState } = useFormContext();
-  const mask = useIMask({ mask: format });
+  const mask = useIMask({ mask: format, autofix: true });
   const error = formState?.errors[name]?.message as string;
   const errorStyle = useSpring(
     error
@@ -94,6 +94,11 @@ const Input = ({
             onBlur={params.field.onBlur}
             defaultValue={params.field.value}
             ref={mask.ref}
+            onInput={() => {
+              params.field.onChange({
+                target: { value: mask.unmaskedValue },
+              });
+            }}
             onChange={() => {
               params.field.onChange({
                 target: { value: mask.unmaskedValue },
