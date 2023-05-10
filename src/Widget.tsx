@@ -1,15 +1,15 @@
-import * as React from 'react'
-import PersonalInfo from './PersonalInfo'
-import WhoAreYouHereFor from './WhoAreYouHereFor'
-import { useForm, FormProvider } from 'react-hook-form'
-import styled from '@emotion/styled'
+import * as React from "react";
+import PersonalInfo from "./PersonalInfo";
+import WhoAreYouHereFor from "./WhoAreYouHereFor";
+import { useForm, FormProvider } from "react-hook-form";
+import styled from "@emotion/styled";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
+  font-family: "Lato-Solace", "Lato – Solace", "Lato", sans-serif;
   font-size: 16px;
   line-height: 19px;
   text-align: center;
@@ -20,7 +20,7 @@ const Container = styled.div`
   box-shadow: 2px 2px 20px #d4e2dd;
   border-radius: 20px;
   padding: 36px 50px;
-`
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,85 +32,79 @@ const Wrapper = styled.div`
     font-size: 16px;
     padding: 36px 50px;
   }
-`
+`;
 declare global {
   interface Window {
-    analytics: any
+    analytics: any;
   }
 }
 
 const SearchWidget = () => {
-  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false)
-  const methods = useForm({ mode: 'onSubmit', reValidateMode: 'onChange' })
-  const [isSubmitting, setSubmitting] = React.useState(false)
+  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
+  const methods = useForm({ mode: "onSubmit", reValidateMode: "onChange" });
+  const [isSubmitting, setSubmitting] = React.useState(false);
 
-  const { handleSubmit, watch } = methods
-  watch()
-  const onSubmit = async ({
+  const { handleSubmit } = methods;
+
+  const clean = (obj: Record<string, string>): Record<string, string> =>
+    Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));
+
+  const onSubmit = ({
     hereFor,
     firstName,
     lastName,
     email,
-    phone
+    phone,
   }: {
-    hereFor: string
-    firstName: string
-    lastName: string
-    email: string
-    phone: string
+    hereFor: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
   }) => {
     if (isSubmitting) return;
-    setSubmitting(true)
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        here_for: hereFor,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        phone
-      })
-    }
+    setSubmitting(true);
 
-    const response = await fetch('https://api.solace.health/v1/api/prospects', requestOptions)
-    const data: { id: string } = await response.json()
-    
-    if (data.id) {
-      const redirect = `https://find.solace.health/?p_id=${data.id}`
-      if (window.analytics) {
-        window.analytics.track('FUNNEL_ENTRY', {
-          context: 'MarketingHome',
-          location,
-          redirect_url: redirect
-        })
-      }
-      setTimeout(() => { 
-        console.log(redirect)
-        window.location.assign(redirect);
-      }, 500);
+    const data = clean({
+      here_for: hereFor,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone,
+    });
 
-      setSubmitting(false)
-      return false;
-    }
-  }
+    const formQuery = new URLSearchParams(data);
+    const redirect = `https://find.solace.health?${formQuery}`;
+    window.location.href = redirect;
+
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 2000);
+  };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container>
           <Wrapper>
-            {showPersonalInfo
-              ? (
-              <PersonalInfo goBack={() => { setShowPersonalInfo(false) }} isSubmitting={isSubmitting} />
-                )
-              : (
-              <WhoAreYouHereFor next={() => { setShowPersonalInfo(true) }} />
-                )}
+            {showPersonalInfo ? (
+              <PersonalInfo
+                goBack={() => {
+                  setShowPersonalInfo(false);
+                }}
+                isSubmitting={isSubmitting}
+              />
+            ) : (
+              <WhoAreYouHereFor
+                next={() => {
+                  setShowPersonalInfo(true);
+                }}
+              />
+            )}
           </Wrapper>
         </Container>
       </form>
     </FormProvider>
-  )
-}
-export default SearchWidget
+  );
+};
+export default SearchWidget;
