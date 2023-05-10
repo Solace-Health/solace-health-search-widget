@@ -86,8 +86,8 @@ const SearchWidget = () => {
         })
       }
       setTimeout(() => { 
-        window.location.href = redirect
         console.log(redirect)
+        window.location.assign(redirect);
       }, 500);
 
       setSubmitting(false)
