@@ -75,8 +75,7 @@ const SearchWidget = () => {
 
     const formQuery = new URLSearchParams(data);
     const redirect = `https://find.solace.health/?${formQuery}`;
-    console.log(redirect);
-    window.location.assign(redirect);
+    window.location.href = redirect;
 
     setTimeout(() => {
       setSubmitting(false);
