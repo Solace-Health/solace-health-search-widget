@@ -1,8 +1,9 @@
-import * as React from "react";
-import Input from "./components/Input";
-import styled from "@emotion/styled";
-import { SubmitButton, BackButton, TrailAnimation } from "./components";
-
+import * as React from 'react';
+import { animated } from '@react-spring/web';
+import Input from './components/Input';
+import styled from '@emotion/styled';
+import { SubmitButton, BackButton } from './components';
+        
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -11,20 +12,21 @@ const ButtonContainer = styled.div`
 
 interface Props {
   goBack: () => void;
+  style: any;
   isSubmitting: boolean;
 }
 
-const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
-  <TrailAnimation>
+const PersonalInfo = ({ goBack, isSubmitting, style }: Props) => (
+  <animated.div style={style}>
     <div>
       We'll never send spam, but we will use this to connect you with the{" "}
       <b>best care for your unique concerns.</b>
     </div>
     <div
       style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
       }}
     >
       <Input
@@ -70,7 +72,7 @@ const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
       <BackButton goBack={goBack} />
       <SubmitButton disabled={false} loading={isSubmitting} />
     </ButtonContainer>
-  </TrailAnimation>
+  </animated.div>
 );
 
 export default PersonalInfo;

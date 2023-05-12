@@ -1,8 +1,8 @@
-import * as React from "react";
-import styled from "@emotion/styled";
-import { Icons, NextButton, TrailAnimation } from "./components";
-import { ButtonBase } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import * as React from 'react';
+import styled from '@emotion/styled';
+import { Icons, NextButton } from './components';
+import { ButtonBase } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 import { animated, useSpring, config } from "@react-spring/web";
 
 const StyledHeader = styled.div`
@@ -42,14 +42,40 @@ const StyledButton = styled(ButtonBase)<{ margin?: string }>`
     margin-top: 12px;
   }
 
+  @media (max-width: 670px) {
+    font-size: 16px;
+  }
+
+  transition: box-shadow 0.5s, opacity 0.5s;
+
   &:hover {
     background-color: #285e50;
     border-color: #285e50;
     color: #fff;
+    animation: scale 250ms ease-in forwards;
+    box-shadow: 0px 20px 20px -10px rgba(0, 0, 0, 0.4);
   }
 
-  @media (max-width: 670px) {
-    font-size: 16px;
+  @keyframes scale {
+    to {
+      transform: scale(1.06);
+    }
+  }
+
+  &:active {
+    animation: press 0.2s 1 linear;
+  }
+
+  @keyframes press {
+    0% {
+      transform: scale(1.06);
+    }
+    25% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
   }
 `;
 
@@ -61,9 +87,10 @@ const StyledError = styled(animated.div)`
 
 interface Props {
   next: () => void;
+  style: unknown;
 }
 
-const WhoAreYouHereFor = ({ next }: Props) => {
+const WhoAreYouHereFor = ({ next, style }: Props) => {
   const { setValue, getValues } = useFormContext();
   const [showError, setShowError] = React.useState(false);
 
@@ -98,13 +125,13 @@ const WhoAreYouHereFor = ({ next }: Props) => {
   );
 
   return (
-    <TrailAnimation>
+    <animated.div style={style}>
       <StyledHeader>Who are you here for?</StyledHeader>
       <StyledError style={errorStyle}>Please choose an option below to continue.</StyledError>
       <StyledButton
         margin="36px 0 20px"
         onClick={() => {
-          setValue("hereFor", "self");
+          setValue('hereFor', 'self');
           next();
         }}
       >
@@ -113,7 +140,7 @@ const WhoAreYouHereFor = ({ next }: Props) => {
       <StyledButton
         margin="0 0 36px"
         onClick={() => {
-          setValue("hereFor", "loved_one");
+          setValue('hereFor', 'loved_one');
           next();
         }}
       >
@@ -124,7 +151,7 @@ const WhoAreYouHereFor = ({ next }: Props) => {
       <ButtonContainer>
         <NextButton next={onSubmit} />
       </ButtonContainer>
-    </TrailAnimation>
+    </animated.div>
   );
 };
 
