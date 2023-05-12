@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { animated } from '@react-spring/web';
 import { Icons, NextButton } from './components';
 import { ButtonBase } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
@@ -92,9 +91,6 @@ interface Props {
 }
 
 const WhoAreYouHereFor = ({ next, style }: Props) => {
-  const { setValue } = useFormContext();
-
-const WhoAreYouHereFor = ({ next }: Props) => {
   const { setValue, getValues } = useFormContext();
   const [showError, setShowError] = React.useState(false);
 

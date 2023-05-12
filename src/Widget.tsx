@@ -3,7 +3,7 @@ import PersonalInfo from './PersonalInfo';
 import WhoAreYouHereFor from './WhoAreYouHereFor';
 import { useForm, FormProvider } from 'react-hook-form';
 import styled from '@emotion/styled';
-import { animated, useTransition, config, AnimatedProps } from '@react-spring/web';
+import { useTransition, AnimatedProps } from '@react-spring/web';
 
 const Container = styled.div`
   display: flex;

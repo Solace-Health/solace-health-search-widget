@@ -2,7 +2,7 @@ import * as React from 'react';
 import { animated } from '@react-spring/web';
 import Input from './components/Input';
 import styled from '@emotion/styled';
-import { SubmitButton, BackButton, TrailAnimation } from './components';
+import { SubmitButton, BackButton } from './components';
         
 const ButtonContainer = styled.div`
   display: flex;
@@ -12,6 +12,7 @@ const ButtonContainer = styled.div`
 
 interface Props {
   goBack: () => void;
+  style: any;
   isSubmitting: boolean;
 }
 
