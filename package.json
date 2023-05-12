@@ -17,11 +17,11 @@
     "@react-spring/web": "^9.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.4"
+    "react-hook-form": "^7.39.4",
+    "react-imask": "^6.6.1"
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.0",
-    "@types/lodash": "^4.14.189",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "babel-plugin-import": "^1.13.6",

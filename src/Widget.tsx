@@ -10,7 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato-Solace', 'Lato – Solace', 'Lato', sans-serif;
+  font-family: "Lato-Solace", "Lato – Solace", "Lato", sans-serif;
   font-size: 16px;
   line-height: 19px;
   text-align: center;
@@ -69,8 +69,11 @@ const pages: ((
 
 const SearchWidget = () => {
   const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
-  const methods = useForm();
+  const methods = useForm({ mode: "onSubmit", reValidateMode: "onChange" });
   const [isSubmitting, setSubmitting] = React.useState(false);
+
+  const { handleSubmit } = methods;
+
   const transitions = useTransition(showPersonalInfo ? 1 : 0, {
     config: {
       duration: 180,
@@ -87,7 +90,8 @@ const SearchWidget = () => {
     exitBeforeEnter: true,
   });
 
-  const { handleSubmit } = methods;
+  const clean = (obj: Record<string, string>): Record<string, string> =>
+    Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));
 
   const onSubmit = ({
     hereFor,
@@ -104,34 +108,22 @@ const SearchWidget = () => {
   }) => {
     if (isSubmitting) return;
     setSubmitting(true);
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        here_for: hereFor,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        phone,
-      }),
-    };
 
-    fetch('https://api.solace.health/v1/api/prospects', requestOptions)
-      .then(async response => await response.json())
-      .then(data => {
-        if (data.id) {
-          const redirect = `https://find.solace.health/?p_id=${data.id}`;
-          if (window.analytics) {
-            window.analytics.track('FUNNEL_ENTRY', {
-              context: 'MarketingHome',
-              location,
-              redirect_url: redirect,
-            });
-          }
-          window.location.assign(redirect);
-          setSubmitting(false);
-        }
-      });
+    const data = clean({
+      here_for: hereFor,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone,
+    });
+
+    const formQuery = new URLSearchParams(data);
+    const redirect = `https://find.solace.health?${formQuery}`;
+    window.location.href = redirect;
+
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 2000);
   };
 
   return (
