@@ -60,9 +60,10 @@ const PersonalInfo = ({ goBack, isSubmitting }: Props) => (
       format="(000) 000-0000"
       rules={{
         pattern: {
-          value: /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/,
-          message: "Please enter a valid phone number"
-        }
+          // Don't allow 0 or 1 as first digit
+          value: /^([2-9]{1})([0-9]{9})/,
+          message: "Please enter a valid phone number",
+        },
       }}
     />
     <ButtonContainer>
